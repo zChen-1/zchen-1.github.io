@@ -167,8 +167,19 @@ div {
 		updateModels();
 		updateYears();
 		function goToMap() {
-				window.location.href = "Map View.html";
-				}
+				// Retrieve the selected vehicle information from the form
+				var make = document.getElementById("Make").value;
+				var model = document.getElementById("Model").value;
+    				var year = document.getElementById("Year").value;
+				// Construct the query string
+    				var queryString = "?make=" + encodeURIComponent(make) +
+                      		"&model=" + encodeURIComponent(model) +
+                      		"&year=" + encodeURIComponent(year);
+
+    				// Redirect to the Map View page with the query string
+    				window.location.href = "MapView.html" + queryString;
+}
+
 	</script>
 </div>
 </article>
