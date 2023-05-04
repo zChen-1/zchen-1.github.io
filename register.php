@@ -1,6 +1,6 @@
 <?php
   // Connect to the database
-  $conn = new SQLite3('users.db');
+  $conn = new SQLite3('users.txt');
 
   // Get user input
   $username = $_POST['username'];
