@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Map View</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+header {
+  background-color: #666;
+  padding: 20px;
+  text-align: center;
+  font-size: 70px;
+  color: white;
+}
+
+
+footer {
+  text-align: left;
+  width: 100%;
+  height: 60px; 
+  font-size: 30px;
+  background: #ccc;
+  padding: 10px;
+}
+
+
+nav {
+  float: left;
+  width: 30%;
+  height: 1000px; 
+  font-size: 50px;
+  background: #ccc;
+  padding: 20px;
+}
+
+
+article {
+  float: left;
+  padding: 20px;
+  width: 70%;
+  background-color: #f1f1f1;
+  height: 1000px; 
+}
+
+#map {
+      height: 80%;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #info {
+      padding: 10px;
+      background-color: #f5f5f5;
+      text-align: center;
+    }
+
+@media (max-width: 600px) {
+  header {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<head>Map View</head>
+</header>
+
+<footer><span style='font-size:30px;'>&#128281;</span></footer>
+
+
+<article>
+  <div id="map"></div>
+  <div id="info">
+    <button id="restartBtn" style="width: 100; height: 100px; font-size: 50px;background: rgb(184, 255, 229);">Restart</button></div>
+  <script>
+    let map;
+    let directionsService;
+    let directionsRenderer;
+    var MPG = 30; //For test
+    var gasPrice = 5.00; //For test
+    var maxRange = 100; //For test
+    var triggerNoneGas = 0;
+
+    function initMap() {
+      directionsService = new google.maps.DirectionsService();
+      directionsRenderer = new google.maps.DirectionsRenderer();
+      const center = {lat: 33.88414358636157, lng: -117.88574535784726}; //CSUF
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: center,
+        zoom: 10
+      });
+      directionsRenderer.setMap(map);
+
+      map.addListener('click', (event) => {
+        addMarker(event.latLng);
+      });
+
+      const markers = [];
+      let start, end;
+
+      function addMarker(location) {
+        if (markers.length === 2) {
+          return;
+        }
+        const marker = new google.maps.Marker({
+          position: location,
+          map: map
+        });
+        markers.push(marker);
+
+        if (markers.length === 1) {
+          start = location;
+        } else {
+          end = location;
+          calculateAndDisplayRoute(directionsService, directionsRenderer, start, end);
+        }
+      }
+
+      document.getElementById('restartBtn').addEventListener('click', () => {
+        for (const marker of markers) {
+          marker.setMap(null);
+          }
+        markers.length = 0;
+        directionsRenderer.setDirections({routes: []});
+        document.getElementById('distance_to_html').innerHTML = '';
+        document.getElementById('duration_to_html').innerHTML = '';
+        document.getElementById('stop_points_to_html').innerHTML = '';
+        document.getElementById('travel_price_to_html').innerHTML = '';
+        document.getElementById('gas_station_warning_to_html').innerHTML ='';
+        //location.reload();
+      });
+    }
+
+    function calculateAndDisplayRoute(directionsService, directionsRenderer, start, end) {
+      const request = {
+        origin: start,
+        destination: end,
+        travelMode: 'DRIVING',
+        unitSystem: google.maps.UnitSystem.IMPERIAL
+      };
+
+      directionsService.route(request, (result, status) => {
+        if (status === 'OK') {
+          directionsRenderer.setDirections(result);
+          const distance = result.routes[0].legs[0].distance.text;
+          const duration = result.routes[0].legs[0].duration.text;
+          document.getElementById('distance_to_html').innerHTML = distance;
+          document.getElementById('duration_to_html').innerHTML = duration;
+          const distanceValue = result.routes[0].legs[0].distance.value / 1609.34; // convert meters to miles
+          //Price calculation - bass on user's car, but now set MPG = 30, gas price = $5.00
+          const travel_price = (distanceValue / MPG) * gasPrice;
+          document.getElementById('travel_price_to_html').innerHTML = `$ ${travel_price.toFixed(2)}`;
+          const numberOfStops = Math.floor(distanceValue / maxRange); // Do it later for max distance per refule.
+
+          document.getElementById('stop_points_to_html').innerHTML = numberOfStops;
+          const overviewPath = result.routes[0].overview_path;
+          var counter_gas_num;
+          var n = 0;
+        
+        
+
+          for (let i = 1; i <= numberOfStops; i++) {
+            counter_gas_num = i;
+            const stopIndex = Math.floor((overviewPath.length / numberOfStops) * i);
+            const stopLocation = overviewPath[stopIndex];
+            addStopMarker(stopLocation);
+            searchGasStations(overviewPath[stopIndex]);
+
+            if (triggerNoneGas > 0)
+            {
+              document.getElementById('gas_station_warning_to_html').innerHTML = `WARNING!!! There is no gas station 50 miles away from the #`;
+            }
+            
+          }
+            //document.getElementById('gas_station_warning_to_html').innerHTML = `WARNING!!! There is no gas station 50 miles away from the # ${none_gas}`;
+            //console.log(none_gas);
+            
+          //}
+        }
+      });
+    }
+    function changetrigger_none_gas(newNum){
+      triggerNoneGas = newNum;
+    }
+	//Did not show
+	function addStopMarker(location) {
+      const marker = new google.maps.Marker({
+		position: location,
+        map: map,
+        icon: {
+          url: 'https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png',
+          scaledSize: new google.maps.Size(32, 32)
+        }
+      });
+	}
+
+  function searchGasStations(location) {
+  var radius = 100;//3218; // 2 mile in meters
+  var NoneGas = triggerNoneGas;
+  var request = {
+    location: location,
+    radius: radius,
+    type: ['gas_station']
+  };
+  
+  service = new google.maps.places.PlacesService(map);
+  service.nearbySearch(request, function(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        createGasStationMarker(results[i]);
+      }
+    } else {
+      radius *= 5; // Search in 10 miles
+      request.radius = radius;
+      service.nearbySearch(request, function(results, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            createGasStationMarker(results[i]);
+          }
+        } else {
+          radius *= 5; // Search in 50 miles
+          request.radius = radius;
+          var counter = 1;
+          service.nearbySearch(request, function(results, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+              for (var i = 0; i < results.length; i++) {
+                createGasStationMarker(results[i]);
+              }
+            } else {
+              triggerNoneGas = 1;
+              //changetrigger_none_gas(1);
+              //document.getElementById('gas_station_warning_to_html').innerHTML = `WARNING!!! There is no gas station 50 miles away from the #`;
+              //document.getElementById('gas_station_warning_to_html').innerHTML = `${triggerNoneGas}`;
+              //document.getElementById('gas_station_warning_num_to_html').innerHTML = `${none_gas.text}`;
+            }
+          });
+        }
+      });
+    }
+  });
+}
+
+	//Did not clean
+    function createGasStationMarker(place) {
+      const marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location,
+        icon: {
+          url: 'http://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/gas_station-71.png',
+          scaledSize: new google.maps.Size(25, 25)
+        }
+      });
+      
+  var content = '<h3>' + place.name + place.i + '</h3><p>Gas price: $3.50/gallon</p>'; //Not work yet
+  
+  marker.addListener('click', function() {
+    if (infoWindow) {
+      infoWindow.close();
+    }
+    infoWindow = new google.maps.InfoWindow({
+      content: content
+    });
+    infoWindow.open(map, marker);
+  });
+    }
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVPCMFzIZcldKs4BYyHHRQs7RGWQ-R534&callback=initMap&libraries=places"></script>
+</article>
+
+
+<nav>
+<p><span style='font-size:50px;'>&#128176;</span> :  <span id="travel_price_to_html"> </span></p>
+<p><span style='font-size:50px;'>&#9201;</span> :  <span id="duration_to_html"> </span></p>
+<p><span style='font-size:50px;'>&#128663;</span> :  <span id="distance_to_html"> </span></p>
+<p style='font-size:40px;'>Refueling Times(<img src="https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png" alt="red-dot">): <span id="stop_points_to_html"> </span></p>
+<p>Information </span> :  <span id="gas_station_warning_to_html"> </p>
+<p>Information</p>
+<p>Information</p>
+
+
+<button type="button" onclick="myFunction()" style = "float: right">Print</button>
+</nav>
+</body>
+</html>
