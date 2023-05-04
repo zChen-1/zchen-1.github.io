@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $password = $_POST['password'];
 
   // Connect to the database
-  $db = new PDO('sqlite:user.db');
+  $db = new PDO('sqlite:users.db');
   
   // Prepare the SQL query to check if the username and password match
   $stmt = $db->prepare('SELECT id FROM users WHERE username = :username AND password = :password');
