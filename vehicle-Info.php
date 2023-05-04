@@ -1,4 +1,23 @@
-<!DOCTYPE html>
+<?php
+// Connect to the database
+$db = new PDO('sqlite:vehicles.db');
+
+// Retrieve the form data
+$make = $_POST['Make'];
+$model = $_POST['Model'];
+$year = $_POST['Year'];
+
+// Prepare the SQL statement to insert the data into the database
+$stmt = $db->prepare('INSERT INTO vehicles (make, model, year) VALUES (:make, :model, :year)');
+$stmt->bindValue(':make', $make);
+$stmt->bindValue(':model', $model);
+$stmt->bindValue(':year', $year);
+$stmt->execute();
+
+// Display a success message
+echo "Your vehicle information has been saved in the database.";
+?>
+
 <html>
 <head>
 <style>
@@ -189,23 +208,4 @@ div {
 </body>
 </html>
 								      
-<?php
-// Connect to the database
-$db = new PDO('sqlite:vehicles.db');
-
-// Retrieve the form data
-$make = $_POST['Make'];
-$model = $_POST['Model'];
-$year = $_POST['Year'];
-
-// Prepare the SQL statement to insert the data into the database
-$stmt = $db->prepare('INSERT INTO vehicles (make, model, year) VALUES (:make, :model, :year)');
-$stmt->bindValue(':make', $make);
-$stmt->bindValue(':model', $model);
-$stmt->bindValue(':year', $year);
-$stmt->execute();
-
-// Display a success message
-echo "Your vehicle information has been saved in the database.";
-?>
 
