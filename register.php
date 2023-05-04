@@ -17,7 +17,7 @@
   // Close the database connection
   $conn->close();
 
-  // Redirect the user back to the index.html page
+  // Redirect the user to index.html
   header('Location: index.html');
   exit;
 ?>
