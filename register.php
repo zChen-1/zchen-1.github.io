@@ -7,13 +7,13 @@
   $email = $_POST['email'];
   $password = $_POST['password'];
 
-  // Insert user data into database
-  $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
-  $conn->exec($sql);
+  // Hash the password for security
+  $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+  // Insert the user data into the "users" table
+  $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
+  $result = $conn->query($sql);
 
   // Close the database connection
   $conn->close();
-
-  // Redirect to login page
-  header("Location: index.html");
 ?>
