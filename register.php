@@ -15,5 +15,5 @@
   $conn->close();
 
   // Redirect to login page
-  header("Location: Login.html");
+  header("Location: index.html");
 ?>
