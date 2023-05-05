@@ -73,7 +73,7 @@ article {
 <head>Map View</head>
 </header>
 
-<footer><span style='font-size:30px;'>&#128281;</span></footer>
+<footer><span style='font-size:30px;'>&#128281; onclick="goToHomePage()"</span></footer>
 
 
 <article>
@@ -270,6 +270,9 @@ article {
     });
     infoWindow.open(map, marker);
   });
+    }
+    function goToHomePage(){
+    window.location.href = "index.html";
     }
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVPCMFzIZcldKs4BYyHHRQs7RGWQ-R534&callback=initMap&libraries=places"></script>
