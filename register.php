@@ -1,12 +1,12 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   // Connect to the database
   $conn = new SQLite3('users.db');
 
   // Get user input
-  $username = $_POST['username'];
-  $email = $_POST['email'];
-  $password = $_POST['password'];
+  $username = $_GET['username'];
+  $email = $_GET['email'];
+  $password = $_GET['password'];
 
   // Hash the password for security
   $hashed_password = password_hash($password, PASSWORD_DEFAULT);
