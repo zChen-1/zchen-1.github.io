@@ -1,5 +1,5 @@
 <?php
-     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // Connect to the database
   $conn = new SQLite3('users.db');
 
