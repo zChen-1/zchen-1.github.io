@@ -1,4 +1,5 @@
 <?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // Connect to the database
   $conn = new SQLite3('users.db');
 
@@ -20,4 +21,5 @@
   // Redirect the user to index.html
   header('Location: index.html');
   exit;
+}
 ?>
