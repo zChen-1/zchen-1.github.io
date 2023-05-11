@@ -108,29 +108,29 @@ article {
     var triggerNoneGas = 0;
 
     window.addEventListener('DOMContentLoaded', (event) => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const year = urlParams.get("year");
-      const make = urlParams.get("make");
-      const model = urlParams.get("model");
-      var yearVehicle = year;
-      var modelVehicle = model;
-      var makeVehicle = make; // <-- Change 'makeVehichle' to 'makeVehicle'
-      const receivedValue = year + " " + make + " " + model;
-      document.getElementById('receivedValue').innerText = decodeURIComponent(receivedValue);
+  const urlParams = new URLSearchParams(window.location.search);
+  const year = urlParams.get("year");
+  const make = urlParams.get("make");
+  const model = urlParams.get("model");
+  const yearVehicle = year;
+  const modelVehicle = model;
+  const makeVehicle = make;
+  const receivedValue = year + " " + make + " " + model;
+  document.getElementById('receivedValue').innerText = decodeURIComponent(receivedValue);
+
+  const csvUrl = 'vehicle.csv';
+  fetch(csvUrl).then((response) => response.text()).then((csvText) => {
+    Papa.parse(csvText, {
+      header: true,
+      complete: (results) => {
+        const vehicles = results.data;
+        const vehicle = findVehicle(vehicles, makeVehicle, modelVehicle, yearVehicle);
+        displayCombMPG(vehicle);
+      },
+    });
+  });
 });
 
-
-    const csvUrl = 'vehicle.csv';
-    fetch(csvUrl).then((response) => response.text()).then((csvText) => {
-      Papa.parse(csvText, {
-        header: true,
-        complete: (results) => {
-          const vehicles = results.data;
-          const vehicle = findVehicle(vehicles, makeVehicle, modelVehicle, yearVehicle); // <-- Change 'makeVehichle' to 'makeVehicle'
-          displayCombMPG(vehicle);
-  },
-});
-});
 
   function findVehicle(vehicles, makeVehicle, modelVehicle, yearVehicle) {
   return vehicles.find(
