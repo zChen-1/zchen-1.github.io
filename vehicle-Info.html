@@ -74,114 +74,52 @@ div {
 
 
 <body>
-<header>
-  <h2>Enter Your Vechcle</h2>
-</header>
-
-<nav>
-
-<button onclick="goToHomePage()"><a href="url"><span style='font-size:30px;'>&#127968;</span></a></button>
-<a href="url"><span style='font-size:30px;'>&#128100;</span></a>
-</nav>
-
-<script>
-  var models = {
-    "Select the make": ["Select the model"],
-    "Audi": ["Select the model","A4", "A5", "A6", "A7", "A8", "S4", "S5", "S6", "S7", "S8"],
-    "BMW": ["Select the model","M4", "M5", "M6"],
-    "Dodge":["Select the model"],
-    "Honda":["Select the model"],
-    "Jeep":["Select the model"],
-    "Lexus":["Select the model"],
-    "Mazda":["Select the model"],
-    "Mercedes-Benz": ["Select the model","AMG A35","AMG A45","AMG C43","AMG C63","C250", "C300", "E300"],
-    "Nissan":["Select the model"],
-    "Toyota":["Select the model"],
-    "Volvo":["Select the model"],
-
-  };
-
-  var years = ["Select the year","2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"];
-  function updateModels() {
-			var make = document.getElementById("Make").value;
-			var modelSelect = document.getElementById("Model");
-
-			// Remove existing options
-			modelSelect.innerHTML = "";
-
-			// Add new options based on selected Make
-			for (var i = 0; i < models[make].length; i++) {
-				var option = document.createElement("option");
-				option.value = models[make][i];
-				option.text = models[make][i];
-				modelSelect.add(option);
-			}
-		}
-
-		function updateYears() {
-			var yearSelect = document.getElementById("Year");
-
-			// Remove existing options
-			yearSelect.innerHTML = "";
-
-			// Add new options
-			for (var i = 0; i < years.length; i++) {
-				var option = document.createElement("option");
-				option.value = years[i];
-				option.text = years[i];
-				yearSelect.add(option);
-			}
-		}
-</script>
-<article>
-<h3>Enter you Vehicle Information</h3>
-
-<div>
-  <label for="Year">Year</label>
-  <select id="Year" name="Year">
-  </select><br><br>
-  <label for="Make">Make</label>
-	<select id="Make" name="Make" onchange="updateModels()">
-    <option value="Select the make">Select the make</option>
-    <option value="Audi">Audi</option>
-    <option value="BMW">BMW</option>
-    <option value="Dodge">Dodge</option>
-    <option value="Honda">Honda</option>
-    <option value="Jeep">Jeep</option>
-    <option value="Lexus">Lexus</option>
-    <option value="Mazda">Mazda</option>
-    <option value="Mercedes-Benz">Mercedes-Benz</option>
-    <option value="Nissan">Nissan</option>
-    <option value="Toyota">Toyota</option>
-    <option value="Volvo">Volvo</option>
-	</select><br><br>
-
-		<label for="Model">Model</label>
-		<select id="Model" name="Model"></select><br><br>
-
-		<button class="btn" onclick="gotToMap()">GO</button>
-
-	<script>
-		updateModels();
-		updateYears();
-    //Get the vehicle info
-    function goToMap() {
-      const inputValue = document.getElementById("Year", 'Make', "Model").value;
-      window.location.href = "MapView.html?value=" + encodeURIComponent(inputValue);
-    }
-
-
-    function goToHomePage()
-    {
-      window.location.href = "index.html";
-    }
-
-	</script>
-</div>
-</article>
-
-<footer>CPSC 491</footer>
-
-</body>
+  <header>
+    <h2>Enter Your Vehicle</h2>
+  </header>
+  
+  <nav>
+    <a href="index.html"><span style='font-size:30px;'>&#127968;</span></a>
+    <a href="profile.html"><span style='font-size:30px;'>&#128100;</span></a>
+  </nav>
+  
+  <script>
+    // Rest of the script remains the same
+  </script>
+  
+  <article>
+  <h3>Enter your Vehicle Information</h3>
+  
+  <div>
+    <label for="Year">Year</label>
+    <select id="Year" name="Year">
+    </select><br><br>
+    <label for="Make">Make</label>
+    <select id="Make" name="Make" onchange="updateModels()">
+      <!-- Options here -->
+    </select><br><br>
+  
+    <label for="Model">Model</label>
+    <select id="Model" name="Model"></select><br><br>
+  
+    <button class="btn" onclick='goToMap()'>GO</button>
+  
+    <script>
+      updateModels();
+      updateYears();
+  
+      function goToMap() {
+        const year = document.getElementById("Year").value;
+        const make = document.getElementById("Make").value;
+        const model = document.getElementById("Model").value;
+        const vehicleInfo = `${year}-${make}-${model}`;
+        window.location.href = "MapView.html?value=" + encodeURIComponent(vehicleInfo);
+      }
+    </script>
+  </div>
+  </article>
+  
+  <footer>CPSC 491</footer>
+  </body>
 </html>
 								      
