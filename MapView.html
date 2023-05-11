@@ -176,20 +176,23 @@ html, body {
           const duration = result.routes[0].legs[0].duration.text;
           document.getElementById('distance_to_html').innerHTML = distance;
           document.getElementById('duration_to_html').innerHTML = duration;
-          const distanceValue = result.routes[0].legs[0].distance.value / 1609.34; // convert meters to miles
-          //Create random gas price between 4 and 9, because the API key of gas price is expensive....
-          var gasPrice = getRandomGasPrice(4, 9);
-          const travel_price = getGasPriceForLocation(gasPrice, distance, MPG);
-          document.getElementById('travel_price_to_html').innerHTML = `$ ${travel_price.toFixed(2)}`;
-          const numberOfStops = Math.floor(distanceValue / maxRange); // Do it later for max distance per refule.
+          const distanceValue = result.routes[0].legs[0].distance.value / 1609.34; //Convert meters to miles
+          var gasPrice = getRandomGasPrice(3, 4);
+          const travel_price_regular = getGasPriceForLocation(gasPrice, distance, MPG);
+          document.getElementById('travel_price_regular').innerHTML = `$ ${travel_price_regular.toFixed(2)}`;
+          gasPrice += 0.2;
+          const travel_price_midgrade = getGasPriceForLocation(gasPrice, distance, MPG);
+          document.getElementById('travel_price_midgrade').innerHTML = `$ ${travel_price_midgrade.toFixed(2)}`;
+          gasPrice += 0.2;
+          const travel_price_premium = getGasPriceForLocation(gasPrice, distance, MPG);
+          document.getElementById('travel_price_premium').innerHTML = `$ ${travel_price_premium.toFixed(2)}`;
+          const numberOfStops = Math.floor(distanceValue / maxRange); //Do it later for max distance per refule.
 
           document.getElementById('stop_points_to_html').innerHTML = numberOfStops;
           const overviewPath = result.routes[0].overview_path;
           var counter_gas_num;
           var n = 0;
         
-        
-
           for (let i = 1; i <= numberOfStops; i++) {
             counter_gas_num = i;
             const stopIndex = Math.floor((overviewPath.length / numberOfStops) * i);
@@ -307,7 +310,7 @@ html, body {
     return (Math.random() * (max - min) + min).toFixed(2);
   }
 
-  function getGasPriceForLocation(gasPrice, distance, MPG) {
+  function getGasPriceForLocation(distance, MPG) {
     var price = (distanceValue / MPG) * gasPrice;
     return price;
   }
@@ -318,7 +321,10 @@ html, body {
 </article>
 
 <nav>
-<p><span style='font-size:50px;'>&#128176;</span> :  <span id="travel_price_to_html"> </span></p>
+<p><span style='font-size:50px;'>&#128176;</span></p>
+<p>Regular: <span id="travel_price_regular" style='font-size:20px;'></span>
+   Midgrade: <span id="travel_price_midgrade" style='font-size:20px;'></span>
+   Premium: <span id="travel_price_premium" style='font-size:20px;'></span></p>
 <p><span style='font-size:50px;'>&#9201;</span> :  <span id="duration_to_html"> </span></p>
 <p><span style='font-size:50px;'>&#128663;</span> :  <span id="distance_to_html"> </span></p>
 <span id="combMPG"></span>
@@ -330,5 +336,6 @@ html, body {
 </nav>
 </body>
 </html>
+
 
 
