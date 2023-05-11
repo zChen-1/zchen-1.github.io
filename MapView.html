@@ -179,15 +179,15 @@ html, body {
           
           const distanceValue = result.routes[0].legs[0].distance.value / 1609.34; //Convert meters to miles
           var gasPrice = getRandomGasPrice(3, 5);
-          const travel_price_regular = getGasPriceForLocation(gasPrice, distance, MPG);
+          const travel_price_regular = getGasPriceForLocation(gasPrice, parseInt(distance), MPG);
           document.getElementById('travel_price_regular').innerHTML = `Regular: $ ${travel_price_regular.toFixed(2)}`;
           
           gasPrice += 0.2;
-          const travel_price_midgrade = getGasPriceForLocation(gasPrice, distance, MPG);
+          const travel_price_midgrade = getGasPriceForLocation(gasPrice, parseInt(distance), MPG);
           document.getElementById('travel_price_midgrade').innerHTML = `Midgrade: $ ${travel_price_midgrade.toFixed(2)}`;
           
           gasPrice += 0.2;
-          const travel_price_premium = getGasPriceForLocation(gasPrice, distance, MPG);
+          const travel_price_premium = getGasPriceForLocation(gasPrice, parseInt(distance), MPG);
           document.getElementById('travel_price_premium').innerHTML = `Premium: $ ${travel_price_premium.toFixed(2)}`;
           
           const numberOfStops = Math.floor(distanceValue / maxRange);
