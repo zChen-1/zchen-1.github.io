@@ -255,6 +255,42 @@ html, body {
   .catch((error) => {
     console.error('Error:', error);
   });
+  
+  service = new google.maps.places.PlacesService(map);
+  service.nearbySearch(request, function(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        createGasStationMarker(results[i]);
+      }
+    } else {
+      radius *= 5; // Search in 10 miles
+      request.radius = radius;
+      service.nearbySearch(request, function(results, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            createGasStationMarker(results[i]);
+          }
+        } else {
+          radius *= 5; // Search in 50 miles
+          request.radius = radius;
+          var counter = 1;
+          service.nearbySearch(request, function(results, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+              for (var i = 0; i < results.length; i++) {
+                createGasStationMarker(results[i]);
+              }
+            } else {
+              triggerNoneGas = 1;
+              //changetrigger_none_gas(1);
+              //document.getElementById('gas_station_warning_to_html').innerHTML = `WARNING!!! There is no gas station 50 miles away from the #`;
+              //document.getElementById('gas_station_warning_to_html').innerHTML = `${triggerNoneGas}`;
+              //document.getElementById('gas_station_warning_num_to_html').innerHTML = `${none_gas.text}`;
+            }
+          });
+        }
+      });
+    }
+  });
 }
 
 	//Did not clean
