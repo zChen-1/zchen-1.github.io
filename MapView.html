@@ -86,7 +86,6 @@ article {
 </head>
 
 <body>
-
 <header>
 <head>Map View</head>
 </header>
@@ -97,6 +96,7 @@ article {
 <article>
   <div id="map"></div>
   <div id="combMPG"></div>
+  <div id="receivedValue"></div>
   <div id="info">
   <script>
     let map;
@@ -125,20 +125,21 @@ article {
       header: true,
       complete: (results) => {
         const vehicles = results.data;
-        const vehicle = findVehicle(vehicles, makeVehichle, modelVehicle, yearVehicle);
+        const vehicle = findVehicle(vehicles, makeVehichle, makeVehichle, yearVehicle);
         displayCombMPG(vehicle);
       },
     });
   });
 
-function findVehicle(vehicles, make, model, year) {
+  function findVehicle(vehicles, makeVehicle, modelVehicle, yearVehicle) {
   return vehicles.find(
     (vehicle) =>
-      vehicle.Make === make &&
-      vehicle.Model === model &&
-      parseInt(vehicle.Year) === year
+      vehicle.Make === makeVehicle &&
+      vehicle.Model === modelVehicle &&
+      parseInt(vehicle.Year) === yearVehicle
   );
 }
+
 
 function displayCombMPG(vehicle) {
   if (vehicle) {
