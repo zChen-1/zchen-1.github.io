@@ -115,7 +115,7 @@ article {
       document.getElementById('receivedValue').innerText = decodeURIComponent(receivedValue);
     });
 
-    const csvUrl = 'vehicel.csv';
+    const csvUrl = 'vehicle.csv';
     fetch(csvUrl).then((response) => response.text()).then((csvText) => {
       Papa.parse(csvText, {
       header: true,
