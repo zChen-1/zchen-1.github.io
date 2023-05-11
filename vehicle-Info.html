@@ -159,19 +159,19 @@ div {
   <label for="Model">Model</label>
   <select id="Model" name="Model"></select><br><br>
 
-  <button class="btn" onclick='goToMap()'>GO</button>
+  <button class="btn" onclick='goToVehicleData()'>GO</button>
 
   <script>
     updateModels();
     updateYears();
 
-    function goToMap() {
+    function goToVehicleData() {
   const year = document.getElementById("Year").value;
   const make = document.getElementById("Make").value;
   const model = document.getElementById("Model").value;
 
   window.location.href =
-    "MapView.html?year=" +
+    "vehicleData.js?year=" +
     encodeURIComponent(year) +
     "&make=" +
     encodeURIComponent(make) +
