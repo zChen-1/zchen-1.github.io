@@ -15,7 +15,7 @@
   color: rgb(0, 0, 0);
 }
 
- .colorPrintBtn {
+.colorPrintBtn {
   background-color: rgb(255, 255, 255);
   text-align: center;
   width: 50%;
@@ -32,7 +32,6 @@ header {
   color: white;
 }
 
-
 footer {
   text-align: left;
   width: 100%;
@@ -42,7 +41,6 @@ footer {
   padding: 10px;
 }
 
-
 nav {
   float: left;
   width: 30%;
@@ -51,7 +49,6 @@ nav {
   background: #ccc;
   padding: 20px;
 }
-
 
 article {
   float: left;
@@ -63,17 +60,17 @@ article {
 
 #map {
       height: 80%;
-    }
-    html, body {
+}
+html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-    }
-    #info {
+}
+#info {
       padding: 10px;
       background-color: #f5f5f5;
       text-align: center;
-    }
+}
 
 @media (max-width: 600px) {
   header {
@@ -91,7 +88,6 @@ article {
 </header>
 
 <footer><span style='font-size:30px;' onclick="goToHomePage()">&#128281;</span></footer>
-
 
 <article>
   <div id="map"></div>
@@ -221,7 +217,7 @@ article {
     }
 	//Did not show
 	function addStopMarker(location) {
-      const marker = new google.maps.Marker({
+		const marker = new google.maps.Marker({
 		position: location,
         map: map,
         icon: {
@@ -307,11 +303,9 @@ article {
     function printPage() {
     window.print();
   }
-
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVPCMFzIZcldKs4BYyHHRQs7RGWQ-R534&callback=initMap&libraries=places"></script>
 </article>
-
 
 <nav>
 <p><span style='font-size:50px;'>&#128176;</span> :  <span id="travel_price_to_html"> </span></p>
@@ -326,3 +320,5 @@ article {
 </nav>
 </body>
 </html>
+
+
