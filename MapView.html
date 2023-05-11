@@ -114,7 +114,7 @@ html, body {
   document.getElementById('receivedValue').innerText = decodeURIComponent(receivedValue);
   MPG = urlParams.get("combMPG");
   maxRange = fuleTank * MPG;
-  
+
 });
 
   function initMap() {
@@ -214,6 +214,7 @@ html, body {
         }
       });
     }
+
     function changetrigger_none_gas(newNum){
       triggerNoneGas = newNum;
     }
@@ -230,48 +231,29 @@ html, body {
 	}
 
   function searchGasStations(location) {
-  var radius = 100;//3218; // 2 mile in meters
+  const radius = 3218; // 2 mile in meters
   var NoneGas = triggerNoneGas;
   var request = {
     location: location,
     radius: radius,
     type: ['gas_station']
   };
-  
-  service = new google.maps.places.PlacesService(map);
-  service.nearbySearch(request, function(results, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
-      for (var i = 0; i < results.length; i++) {
-        createGasStationMarker(results[i]);
-      }
+  const locationForSearch = location;
+  const apiKey = 'AIzaSyCVPCMFzIZcldKs4BYyHHRQs7RGWQ-R534';
+  const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${locationForSearch}&radius=${radius}&type=gas_station&key=${apiKey}`;
+  fetch(url)
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.status === 'OK' && data.results.length > 0) {
+      const gasStation = data.results[0];
+      const gasPrice = gasStation.price_level ? gasStation.price_level : 'Unknown';
+      print(gasPrice);
     } else {
-      radius *= 5; // Search in 10 miles
-      request.radius = radius;
-      service.nearbySearch(request, function(results, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < results.length; i++) {
-            createGasStationMarker(results[i]);
-          }
-        } else {
-          radius *= 5; // Search in 50 miles
-          request.radius = radius;
-          var counter = 1;
-          service.nearbySearch(request, function(results, status) {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
-              for (var i = 0; i < results.length; i++) {
-                createGasStationMarker(results[i]);
-              }
-            } else {
-              triggerNoneGas = 1;
-              //changetrigger_none_gas(1);
-              //document.getElementById('gas_station_warning_to_html').innerHTML = `WARNING!!! There is no gas station 50 miles away from the #`;
-              //document.getElementById('gas_station_warning_to_html').innerHTML = `${triggerNoneGas}`;
-              //document.getElementById('gas_station_warning_num_to_html').innerHTML = `${none_gas.text}`;
-            }
-          });
-        }
-      });
+      console.log('No gas stations found.');
     }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
   });
 }
 
@@ -306,6 +288,7 @@ html, body {
     window.print();
   }
   </script>
+
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVPCMFzIZcldKs4BYyHHRQs7RGWQ-R534&callback=initMap&libraries=places"></script>
 </article>
 
