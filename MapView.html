@@ -179,15 +179,16 @@ html, body {
           
           const distanceValue = result.routes[0].legs[0].distance.value / 1609.34; //Convert meters to miles
           var gasPrice = getRandomGasPrice(3, 5);
-          const travel_price_regular = getGasPriceForLocation(gasPrice, parseInt(distance), MPG);
+          var totalDistance = parseInt(distance);
+          const travel_price_regular = getGasPriceForLocation(gasPrice, totalDistance, MPG);
           document.getElementById('travel_price_regular').innerHTML = `Regular: $ ${travel_price_regular.toFixed(2)}`;
           
           gasPrice += 0.2;
-          const travel_price_midgrade = getGasPriceForLocation(gasPrice, parseInt(distance), MPG);
+          const travel_price_midgrade = getGasPriceForLocation(gasPrice, totalDistance, MPG);
           document.getElementById('travel_price_midgrade').innerHTML = `Midgrade: $ ${travel_price_midgrade.toFixed(2)}`;
           
           gasPrice += 0.2;
-          const travel_price_premium = getGasPriceForLocation(gasPrice, parseInt(distance), MPG);
+          const travel_price_premium = getGasPriceForLocation(gasPrice, totalDistance, MPG);
           document.getElementById('travel_price_premium').innerHTML = `Premium: $ ${travel_price_premium.toFixed(2)}`;
           
           const numberOfStops = Math.floor(distanceValue / maxRange);
@@ -314,8 +315,8 @@ html, body {
     return (Math.random() * (max - min) + min).toFixed(2);
   }
 
-  function getGasPriceForLocation(gasPrice, distance, MPG) {
-    var price = (distance / MPG) * gasPrice;
+  function getGasPriceForLocation(gasPrice, totalDistance, MPG) {
+    var price = (totalDistance / MPG) * gasPrice;
     return price;
   }
 
@@ -326,9 +327,9 @@ html, body {
 
 <nav>
 <p><span style='font-size:50px;'>&#128176;</span>
-  <span id="travel_price_regular" style='font-size:20px;'></span>
-  <span id="travel_price_midgrade" style='font-size:20px;'></span>
-  <span id="travel_price_premium" style='font-size:20px;'></span></p>
+  <span id="travel_price_regular" style='font-size:15px;'></span><rl>
+  <span id="travel_price_midgrade" style='font-size:15px;'></span>
+  <span id="travel_price_premium" style='font-size:15px;'></span></p>
 <p><span style='font-size:50px;'>&#9201;</span> :  <span id="duration_to_html"> </span></p>
 <p><span style='font-size:50px;'>&#128663;</span> :  <span id="distance_to_html"> </span></p>
 <span id="combMPG"></span>
