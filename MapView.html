@@ -183,11 +183,11 @@ html, body {
           const travel_price_regular = getGasPriceForLocation(gasPrice, totalDistance, MPG);
           document.getElementById('travel_price_regular').innerHTML = `Regular: $ ${travel_price_regular.toFixed(2)}`;
           
-          gasPrice += 0.2;
+          gasPrice = gasPrice + 0.2;
           const travel_price_midgrade = getGasPriceForLocation(gasPrice, totalDistance, MPG);
           document.getElementById('travel_price_midgrade').innerHTML = `Midgrade: $ ${travel_price_midgrade.toFixed(2)}`;
           
-          gasPrice += 0.2;
+          gasPrice = gasPrice + 0.2;
           const travel_price_premium = getGasPriceForLocation(gasPrice, totalDistance, MPG);
           document.getElementById('travel_price_premium').innerHTML = `Premium: $ ${travel_price_premium.toFixed(2)}`;
           
