@@ -74,52 +74,63 @@ div {
 
 
 <body>
-  <header>
-    <h2>Enter Your Vehicle</h2>
-  </header>
-  
-  <nav>
-    <a href="index.html"><span style='font-size:30px;'>&#127968;</span></a>
-    <a href="profile.html"><span style='font-size:30px;'>&#128100;</span></a>
-  </nav>
-  
+<header>
+  <h2>Enter Your Vehicle</h2>
+</header>
+
+<nav>
+  <a href="index.html"><span style='font-size:30px;'>&#127968;</span></a>
+  <a href="profile.html"><span style='font-size:30px;'>&#128100;</span></a>
+</nav>
+
+<script>
+  // Rest of the script remains the same
+</script>
+
+<article>
+<h3>Enter your Vehicle Information</h3>
+
+<div>
+  <label for="Year">Year</label>
+  <select id="Year" name="Year">
+  </select><br><br>
+  <label for="Make">Make</label>
+  <select id="Make" name="Make" onchange="updateModels()">
+    <option value="Select the make">Select the make</option>
+    <option value="Audi">Audi</option>
+    <option value="BMW">BMW</option>
+    <option value="Dodge">Dodge</option>
+    <option value="Honda">Honda</option>
+    <option value="Jeep">Jeep</option>
+    <option value="Lexus">Lexus</option>
+    <option value="Mazda">Mazda</option>
+    <option value="Mercedes-Benz">Mercedes-Benz</option>
+    <option value="Nissan">Nissan</option>
+    <option value="Toyota">Toyota</option>
+    <option value="Volvo">Volvo</option>
+  </select><br><br>
+
+  <label for="Model">Model</label>
+  <select id="Model" name="Model"></select><br><br>
+
+  <button class="btn" onclick='goToMap()'>GO</button>
+
   <script>
-    // Rest of the script remains the same
+    updateModels();
+    updateYears();
+
+    function goToMap() {
+      const year = document.getElementById("Year").value;
+      const make = document.getElementById("Make").value;
+      const model = document.getElementById("Model").value;
+      const vehicleInfo = `${year}-${make}-${model}`;
+      window.location.href = "MapView.html?value=" + encodeURIComponent(vehicleInfo);
+    }
   </script>
-  
-  <article>
-  <h3>Enter your Vehicle Information</h3>
-  
-  <div>
-    <label for="Year">Year</label>
-    <select id="Year" name="Year">
-    </select><br><br>
-    <label for="Make">Make</label>
-    <select id="Make" name="Make" onchange="updateModels()">
-      <!-- Options here -->
-    </select><br><br>
-  
-    <label for="Model">Model</label>
-    <select id="Model" name="Model"></select><br><br>
-  
-    <button class="btn" onclick='goToMap()'>GO</button>
-  
-    <script>
-      updateModels();
-      updateYears();
-  
-      function goToMap() {
-        const year = document.getElementById("Year").value;
-        const make = document.getElementById("Make").value;
-        const model = document.getElementById("Model").value;
-        const vehicleInfo = `${year}-${make}-${model}`;
-        window.location.href = "MapView.html?value=" + encodeURIComponent(vehicleInfo);
-      }
-    </script>
-  </div>
-  </article>
-  
-  <footer>CPSC 491</footer>
-  </body>
+</div>
+</article>
+
+<footer>CPSC 491</footer>
+</body>
 </html>
 								      
