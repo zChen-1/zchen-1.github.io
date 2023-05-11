@@ -52,7 +52,7 @@
             const vehicle = findVehicle(vehicles, makeVehicle, modelVehicle, yearVehicle);
             console.log(vehicle);
             displayCombMPG(vehicle);
-            setTimeout(() => goToMapView(year, make, model, vehicle), 5000);
+            setTimeout(() => goToMapView(year, make, model, vehicle), 3000);
           },
         });
       });
@@ -77,8 +77,6 @@
 }
 
 function goToMapView(year, make, model, vehicle) {
-  if (vehicle && vehicle.CombMPG) {
-    const combMPG = vehicle.CombMPG;
     window.location.href =
       "MapView.html?year=" +
       encodeURIComponent(year) +
@@ -87,12 +85,8 @@ function goToMapView(year, make, model, vehicle) {
       "&model=" +
       encodeURIComponent(model) +
       "&combMPG=" +
-      encodeURIComponent(combMPG);
-  } else {
-    // Handle the case where vehicle information is not found
-    console.log("Vehicle information not found");
-  }
-}
+      encodeURIComponent(vehicle.CombMPG);
+  } 
 
 
   </script>
