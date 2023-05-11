@@ -180,16 +180,18 @@ html, body {
           const distanceValue = result.routes[0].legs[0].distance.value / 1609.34; //Convert meters to miles
           var gasPrice = getRandomGasPrice(3, 5);
           var totalDistance = parseInt(distance);
-          var travel_price_regular, travel_price_midgrade, travel_price_premium = getGasPriceForLocation(gasPrice, totalDistance, MPG);
+          var travel_price_regular = getGasPriceForLocation(gasPrice, totalDistance, MPG);
           document.getElementById('travel_price_regular').innerHTML = `Regular: $ ${travel_price_regular.toFixed(2)}`;
-          
-          //gasPrice = gasPrice + 0.2;
-          //const travel_price_midgrade = getGasPriceForLocation(gasPrice, totalDistance, MPG);
+
+          gasPrice += 0.2; // Assuming the difference in price between gas types is 0.2
+          var travel_price_midgrade = getGasPriceForLocation(gasPrice, totalDistance, MPG);
+
+          gasPrice += 0.2; // Another increase for premium gas
+          var travel_price_premium = getGasPriceForLocation(gasPrice, totalDistance, MPG);
+
           document.getElementById('travel_price_midgrade').innerHTML = `Midgrade: $ ${travel_price_midgrade.toFixed(2)}`;
-          
-          //gasPrice = gasPrice + 0.2;
-          //const travel_price_premium = getGasPriceForLocation(gasPrice, totalDistance, MPG);
           document.getElementById('travel_price_premium').innerHTML = `Premium: $ ${travel_price_premium.toFixed(2)}`;
+
           
           const numberOfStops = Math.floor(distanceValue / maxRange);
 
@@ -316,17 +318,11 @@ html, body {
   }
 
   function getGasPriceForLocation(gasPrice, totalDistance, MPG) {
-    var price_r = 0;
-    var price_m = 0;
-    var price_p = 0;
+    var price = 0;
 
-    price_r = (totalDistance / MPG) * gasPrice;
-    gasPrice_m = gasPrice + 0.2;
-    price_m = (totalDistance / MPG) * gasPrice_m;
-    gasPrice_p = gasPrice_m + 0.2;
-    price_p = (totalDistance / MPG) * gasPrice_p;
+    price = (totalDistance / MPG) * gasPrice;
 
-    return price_r, price_m, price_p;
+    return price;
   }
 
   </script>
