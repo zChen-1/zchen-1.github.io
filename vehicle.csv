@@ -1,4 +1,4 @@
-make,model,year,engine,horsepower,combMPG
+Make,Model,Year,Engine,Horsepower,CombMPG
 Audi,A3,2021,2.0L,186,29
 Audi,A4,2021,2.0L,261,27
 Audi,A6,2021,3.0L,335,25
