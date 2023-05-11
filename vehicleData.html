@@ -26,22 +26,22 @@
   <div id="receivedValue"></div>
   <div id="combMPG"></div>
 
-
-
   <script>
-  const vehicles = [
-  { Make: 'Audi', Model: 'A3', Year: 2021, Engine: '2.0L', Horsepower: 186, CombMPG: 29 },
-  { Make: 'Audi', Model: 'A4', Year: 2021, Engine: '2.0L', Horsepower: 261, CombMPG: 27 },
-  { Make: 'Audi', Model: 'A6', Year: 2021, Engine: '3.0L', Horsepower: 335, CombMPG: 25 },
-  { Make: 'BMW', Model: '320i', Year: 2021, Engine: '2.0L', Horsepower: 180, CombMPG: 28 },
-  { Make: 'BMW', Model: '330i', Year: 2021, Engine: '2.0L', Horsepower: 255, CombMPG: 30 },
-  { Make: 'BMW', Model: '530i', Year: 2021, Engine: '2.0L', Horsepower: 248, CombMPG: 28 },
-  { Make: 'Mercedes-Benz', Model: 'C300', Year: 2021, Engine: '2.0L', Horsepower: 255, CombMPG: 28 },
-  { Make: 'Mercedes-Benz', Model: 'E350', Year: 2021, Engine: '2.0L', Horsepower: 255, CombMPG: 26 },
-  { Make: 'Toyota', Model: 'Camry', Year: 2021, Engine: '2.5L', Horsepower: 203, CombMPG: 34 },
-  { Make: 'Toyota', Model: 'Corolla', Year: 2021, Engine: '1.8L', Horsepower: 139, CombMPG: 33 },
-  { Make: 'Honda', Model: 'Accord', Year: 2021, Engine: '1.5L', Horsepower: 192, CombMPG: 33 },
-  { Make: 'Honda', Model: 'Civic', Year: 2021, Engine: '2.0L', Horsepower: 158, CombMPG: 33 },];
+  var vehicles = [
+  { Make: 'Audi', Model: 'A3', Year: 2021, Engine: '2.0L', Horsepower: 186, CombMPG: 29, FuelTank: '13.2' },
+  { Make: 'Audi', Model: 'A4', Year: 2021, Engine: '2.0L', Horsepower: 261, CombMPG: 27, FuelTank: '15.3' },
+  { Make: 'Audi', Model: 'A6', Year: 2021, Engine: '3.0L', Horsepower: 335, CombMPG: 25, FuelTank: '18.0' },
+  { Make: 'BMW', Model: '320i', Year: 2021, Engine: '2.0L', Horsepower: 180, CombMPG: 28, FuelTank: '15.6' },
+  { Make: 'BMW', Model: '330i', Year: 2021, Engine: '2.0L', Horsepower: 255, CombMPG: 30, FuelTank: '15.6' },
+  { Make: 'BMW', Model: '530i', Year: 2021, Engine: '2.0L', Horsepower: 248, CombMPG: 28, FuelTank: '18.0' },
+  { Make: 'Mercedes-Benz', Model: 'C300', Year: 2021, Engine: '2.0L', Horsepower: 255, CombMPG: 28, FuelTank: '17.4' },
+  { Make: 'Mercedes-Benz', Model: 'E350', Year: 2021, Engine: '2.0L', Horsepower: 255, CombMPG: 26, FuelTank: '17.4' },
+  { Make: 'Toyota', Model: 'Camry', Year: 2021, Engine: '2.5L', Horsepower: 203, CombMPG: 34, FuelTank: '14.5' },
+  { Make: 'Toyota', Model: 'Corolla', Year: 2021, Engine: '1.8L', Horsepower: 139, CombMPG: 33, FuelTank: '13.2' },
+  { Make: 'Honda', Model: 'Accord', Year: 2021, Engine: '1.5L', Horsepower: 192, CombMPG: 33, FuelTank: '14.8' },
+  { Make: 'Honda', Model: 'Civic', Year: 2021, Engine: '2.0L', Horsepower: 158, CombMPG: 33, FuelTank: '12.4' }
+];
+
 
   window.addEventListener('DOMContentLoaded', (event) => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -57,7 +57,7 @@
   }
 
   if (vehicle) {
-  setTimeout(() => goToMapView(year, make, model, vehicle.CombMPG), 3000);
+  setTimeout(() => goToMapView(year, make, model, vehicle.CombMPG, vehicle.FuelTank), 3000);
 } else {
   console.log('Vehicle not found');
 }
@@ -74,7 +74,7 @@
 }
 
 
-function goToMapView(year, make, model, combMPG) {
+function goToMapView(year, make, model, combMPG, FuelTank) {
   window.location.href =
     "MapView.html?year=" +
     encodeURIComponent(year) +
@@ -83,7 +83,9 @@ function goToMapView(year, make, model, combMPG) {
     "&model=" +
     encodeURIComponent(model) +
     "&combMPG=" +
-    encodeURIComponent(combMPG);
+    encodeURIComponent(combMPG) +
+    "&FuleTank=" + 
+    encodeURIComponent(FuelTank);
 }
   </script>
 </body>
