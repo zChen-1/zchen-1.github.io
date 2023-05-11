@@ -178,19 +178,26 @@ html, body {
           document.getElementById('duration_to_html').innerHTML = duration;
           
           const distanceValue = result.routes[0].legs[0].distance.value / 1609.34; //Convert meters to miles
-          var gasPrice = getRandomGasPrice(3, 5);
-          var totalDistance = parseInt(distance);
-          var travel_price_regular = getGasPriceForLocation(gasPrice, totalDistance, MPG);
-          document.getElementById('travel_price_regular').innerHTML = `Regular: $ ${travel_price_regular.toFixed(2)}`;
 
-          gasPrice += 0.2; // Assuming the difference in price between gas types is 0.2
-          var travel_price_midgrade = getGasPriceForLocation(gasPrice, totalDistance, MPG);
+var gasPrice = getRandomGasPrice(4, 9);
+console.log("Initial gas price: " + gasPrice);
 
-          gasPrice += 0.2; // Another increase for premium gas
-          var travel_price_premium = getGasPriceForLocation(gasPrice, totalDistance, MPG);
+var totalDistance = parseInt(distance);
+console.log("Total distance: " + totalDistance);
 
-          document.getElementById('travel_price_midgrade').innerHTML = `Midgrade: $ ${travel_price_midgrade.toFixed(2)}`;
-          document.getElementById('travel_price_premium').innerHTML = `Premium: $ ${travel_price_premium.toFixed(2)}`;
+var travel_price_regular = getGasPriceForLocation(gasPrice, totalDistance, MPG);
+document.getElementById('travel_price_regular').innerHTML = `Regular: $ ${travel_price_regular.toFixed(2)}`;
+
+gasPrice += 0.2; // Assuming the difference in price between gas types is 0.2
+console.log("Midgrade gas price: " + gasPrice);
+var travel_price_midgrade = getGasPriceForLocation(gasPrice, totalDistance, MPG);
+
+gasPrice += 0.2; // Another increase for premium gas
+console.log("Premium gas price: " + gasPrice);
+var travel_price_premium = getGasPriceForLocation(gasPrice, totalDistance, MPG);
+
+document.getElementById('travel_price_midgrade').innerHTML = `Midgrade: $ ${travel_price_midgrade.toFixed(2)}`;
+document.getElementById('travel_price_premium').innerHTML = `Premium: $ ${travel_price_premium.toFixed(2)}`;
 
           
           const numberOfStops = Math.floor(distanceValue / maxRange);
