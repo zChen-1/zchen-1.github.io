@@ -114,22 +114,23 @@ article {
       const model = urlParams.get("model");
       var yearVehicle = year;
       var modelVehicle = model;
-      var makeVehichle = make;
+      var makeVehicle = make; // <-- Change 'makeVehichle' to 'makeVehicle'
       const receivedValue = year + " " + make + " " + model;
       document.getElementById('receivedValue').innerText = decodeURIComponent(receivedValue);
-    });
+});
+
 
     const csvUrl = 'vehicle.csv';
     fetch(csvUrl).then((response) => response.text()).then((csvText) => {
       Papa.parse(csvText, {
-      header: true,
-      complete: (results) => {
-        const vehicles = results.data;
-        const vehicle = findVehicle(vehicles, makeVehichle, makeVehichle, yearVehicle);
-        displayCombMPG(vehicle);
-      },
-    });
-  });
+        header: true,
+        complete: (results) => {
+          const vehicles = results.data;
+          const vehicle = findVehicle(vehicles, makeVehicle, modelVehicle, yearVehicle); // <-- Change 'makeVehichle' to 'makeVehicle'
+          displayCombMPG(vehicle);
+  },
+});
+});
 
   function findVehicle(vehicles, makeVehicle, modelVehicle, yearVehicle) {
   return vehicles.find(
