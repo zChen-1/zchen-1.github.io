@@ -52,7 +52,7 @@
             const vehicle = findVehicle(vehicles, makeVehicle, modelVehicle, yearVehicle);
             console.log(vehicle);
             displayCombMPG(vehicle);
-            
+            setTimeout(() => goToMapView(vehicle), 3000);
           },
         });
       });
@@ -76,7 +76,6 @@
   }
 }
 
-
     function goToMapView(vehicle) {
       window.location.href =
         "MapView.html?year=" +
@@ -88,7 +87,6 @@
         "&combMPG=" +
         encodeURIComponent(combMPG);
     }
-    setTimeout(() => goToMapView(vehicle), 5000);
   </script>
 </body>
 </html>
