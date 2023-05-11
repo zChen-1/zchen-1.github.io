@@ -101,7 +101,7 @@ article {
     let map;
     let directionsService;
     let directionsRenderer;
-    var MPG = 30; //For test
+    var MPG = 0;
     var gasPrice = 5.00; //For test
     var maxRange = 100; //For test
     var triggerNoneGas = 0;
@@ -129,6 +129,7 @@ function findVehicle(vehicles, make, model, year) {
 
 function displayCombMPG(vehicle) {
   if (vehicle) {
+    MPG = vehicle.CombMPG
     document.getElementById('combMPG').innerHTML = `Combined MPG: ${vehicle.CombMPG}`;
   } else {
     document.getElementById('combMPG').innerHTML = 'Vehicle not found';
@@ -324,7 +325,11 @@ function displayCombMPG(vehicle) {
 
     window.addEventListener('DOMContentLoaded', (event) => {
     const urlParams = new URLSearchParams(window.location.search);
-    const receivedValue = urlParams.get('value');
+    const year = urlParams.get("Year");
+    const make = urlParams.get("Make");
+    const model = urlParams.get("Model");
+    const receivedValue = year + make + model;
+
     document.getElementById('receivedValue').innerText = decodeURIComponent(receivedValue);
 });
 
@@ -337,6 +342,7 @@ function displayCombMPG(vehicle) {
 <p><span style='font-size:50px;'>&#128176;</span> :  <span id="travel_price_to_html"> </span></p>
 <p><span style='font-size:50px;'>&#9201;</span> :  <span id="duration_to_html"> </span></p>
 <p><span style='font-size:50px;'>&#128663;</span> :  <span id="distance_to_html"> </span></p>
+<p style='font-size:40px;'>MPG:</p>
 <p style='font-size:40px;'>Refueling Times(<img src="https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png" alt="red-dot">): <span id="stop_points_to_html"> </span></p>
 <p>Information </span> :  <span id="gas_station_warning_to_html"> </p>
 <p>Your Vehicle: <span id="receivedValue" style='font-size:40px;'></span></p>
