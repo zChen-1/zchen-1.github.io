@@ -111,6 +111,9 @@ article {
       const year = urlParams.get("year");
       const make = urlParams.get("make");
       const model = urlParams.get("model");
+      var yearVehicle = year;
+      var modelVehicle = model;
+      var makeVehichle = make;
       const receivedValue = year + " " + make + " " + model;
       document.getElementById('receivedValue').innerText = decodeURIComponent(receivedValue);
     });
@@ -121,7 +124,7 @@ article {
       header: true,
       complete: (results) => {
         const vehicles = results.data;
-        const vehicle = findVehicle(vehicles, make, model, year);
+        const vehicle = findVehicle(vehicles, makeVehichle, modelVehicle, yearVehicle);
         displayCombMPG(vehicle);
       },
     });
