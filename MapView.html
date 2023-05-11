@@ -131,7 +131,6 @@ article {
   });
 });
 
-
   function findVehicle(vehicles, makeVehicle, modelVehicle, yearVehicle) {
   return vehicles.find(
     (vehicle) =>
@@ -141,10 +140,8 @@ article {
   );
 }
 
-
 function displayCombMPG(vehicle) {
   if (vehicle) {
-    MPG = vehicle.CombMPG
     document.getElementById('combMPG').innerHTML = `${vehicle.CombMPG}`;
   } else {
     document.getElementById('combMPG').innerHTML = 'Vehicle not found';
@@ -243,10 +240,9 @@ function displayCombMPG(vehicle) {
             }
             
           }
-            //document.getElementById('gas_station_warning_to_html').innerHTML = `WARNING!!! There is no gas station 50 miles away from the # ${none_gas}`;
-            //console.log(none_gas);
+            document.getElementById('gas_station_warning_to_html').innerHTML = `WARNING!!! There is no gas station 50 miles away from the # ${none_gas}`;
+            console.log(none_gas);
             
-          //}
         }
       });
     }
