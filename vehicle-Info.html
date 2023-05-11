@@ -169,7 +169,7 @@ div {
       const year = document.getElementById("Year").value;
       const make = document.getElementById("Make").value;
       const model = document.getElementById("Model").value;
-      const vehicleInfo = `${year}-${make}-${model}`;
+      const vehicleInfo = `${year} ${make} ${model}`;
       window.location.href = "MapView.html?value=" + encodeURIComponent(vehicleInfo);
     }
   </script>
