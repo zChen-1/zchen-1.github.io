@@ -157,12 +157,6 @@ html, body {
           marker.setMap(null);
           }
         markers.length = 0;
-        directionsRenderer.setDirections({routes: []});
-        document.getElementById('distance_to_html').innerHTML = '';
-        document.getElementById('duration_to_html').innerHTML = '';
-        document.getElementById('stop_points_to_html').innerHTML = '';
-        document.getElementById('travel_price_to_html').innerHTML = '';
-        document.getElementById('gas_station_warning_to_html').innerHTML ='';
         location.reload();
       });
     }
