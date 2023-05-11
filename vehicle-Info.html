@@ -79,7 +79,7 @@ div {
 </header>
 
 <nav>
-<a href="url"><span style='font-size:30px;'>&#127968;</span></a>
+<a href="url"><span style='font-size:30px;' onclick="goToHomePage()">&#127968;</span></a>
 <a href="url"><span style='font-size:30px;'>&#128100;</span></a>
 </nav>
 
@@ -136,28 +136,27 @@ div {
 <h3>Enter you Vehicle Information</h3>
 
 <div>
-		<label for="Make">Make</label>
-		<select id="Make" name="Make" onchange="updateModels()">
-      <option value="Select the make">Select the make</option>
-      <option value="Audi">Audi</option>
-      <option value="BMW">BMW</option>
-      <option value="Dodge">Dodge</option>
-      <option value="Honda">Honda</option>
-      <option value="Jeep">Jeep</option>
-      <option value="Lexus">Lexus</option>
-      <option value="Mazda">Mazda</option>
-      <option value="Mercedes-Benz">Mercedes-Benz</option>
-      <option value="Nissan">Nissan</option>
-      <option value="Toyota">Toyota</option>
-      <option value="Volvo">Volvo</option>
-		</select><br><br>
+  <label for="Year">Year</label>
+  <select id="Year" name="Year">
+  </select><br><br>
+  <label for="Make">Make</label>
+	<select id="Make" name="Make" onchange="updateModels()">
+    <option value="Select the make">Select the make</option>
+    <option value="Audi">Audi</option>
+    <option value="BMW">BMW</option>
+    <option value="Dodge">Dodge</option>
+    <option value="Honda">Honda</option>
+    <option value="Jeep">Jeep</option>
+    <option value="Lexus">Lexus</option>
+    <option value="Mazda">Mazda</option>
+    <option value="Mercedes-Benz">Mercedes-Benz</option>
+    <option value="Nissan">Nissan</option>
+    <option value="Toyota">Toyota</option>
+    <option value="Volvo">Volvo</option>
+	</select><br><br>
 
 		<label for="Model">Model</label>
 		<select id="Model" name="Model"></select><br><br>
-
-		<label for="Year">Year</label>
-		<select id="Year" name="Year">
-    </select><br><br>
 
 		<button class="btn" onclick="gotToMap()">GO</button>
 
@@ -166,10 +165,14 @@ div {
 		updateYears();
     //Get the vehicle info
     function goToMap() {
-      const inputValue = document.getElementById('Make', "Model", "Year").value;
+      const inputValue = document.getElementById("Year", 'Make', "Model").value;
       window.location.href = "MapView.html?value=" + encodeURIComponent(inputValue);
     }
-    
+
+    function print(){
+
+    }
+
     function goToHomePage()
     {
       window.location.href = "index.html";
