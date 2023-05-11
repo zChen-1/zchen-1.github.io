@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading Information</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+    .loading-message {
+      font-size: 2rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-message">
+    Loading your Information...
+  </div>
+
+  <script>
+    const csvUrl = 'vehicle.csv';
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const year = urlParams.get("year");
+      const make = urlParams.get("make");
+      const model = urlParams.get("model");
+      const yearVehicle = year;
+      const modelVehicle = model;
+      const makeVehicle = make;
+      const receivedValue = year + " " + make + " " + model;
+      document.getElementById('receivedValue').innerText = decodeURIComponent(receivedValue);
+      fetch(csvUrl)
+      .then((response) => response.text())
+      .then((csvText) => {
+        Papa.parse(csvText, {
+          header: true,
+          complete: (results) => {
+            const vehicles = results.data;
+            const vehicle = findVehicle(vehicles, makeVehicle, modelVehicle, yearVehicle);
+            console.log(vehicle);
+            displayCombMPG(vehicle);
+          },
+        });
+      });
+
+    });
+
+    function findVehicle(vehicles, make, model, year) {
+      return vehicles.find(
+        (vehicle) =>
+          vehicle.Make === make &&
+          vehicle.Model === model &&
+          parseInt(vehicle.Year) === year
+      );
+    }
+
+    function displayCombMPG(vehicle) {
+      if (vehicle) {
+        document.getElementById('combMPG').innerHTML = `${vehicle.CombMPG}`;
+      } else {
+        document.getElementById('combMPG').innerHTML = 'Vehicle not found';
+      }
+    }
+
+    function goToMapView() {
+      const year = document.getElementById("Year").value;
+      const make = document.getElementById("Make").value;
+      const model = document.getElementById("Model").value;
+      const combMPG = document.getElementById("CombMPG").value;
+
+      window.location.href =
+        "MapView.html?year=" +
+        encodeURIComponent(year) +
+        "&make=" +
+        encodeURIComponent(make) +
+        "&model=" +
+        encodeURIComponent(model) +
+        "&combMPG=" +
+        encodeURIComponent(combMPG);
+    }
+
+    setTimeout(function() {
+      window.location.href = 'MapView.html';
+    }, 5000);
+  </script>
+</body>
+</html>
