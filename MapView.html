@@ -98,7 +98,7 @@ html, body {
     let directionsRenderer;
     var MPG = 0;
     var gasPrice = 5.00; //For test
-    var maxRange = 100; //For test
+    var maxRange = 0; //For test
     var triggerNoneGas = 0;
 
   window.addEventListener('DOMContentLoaded', (event) => {
@@ -106,13 +106,14 @@ html, body {
   const year = urlParams.get("year");
   const make = urlParams.get("make");
   const model = urlParams.get("model");
+  const fuleTank = urlParams.get("FuleTank");
   const yearVehicle = year;
   const modelVehicle = model;
   const makeVehicle = make;
   const receivedValue = year + " " + make + " " + model;
   document.getElementById('receivedValue').innerText = decodeURIComponent(receivedValue);
-  return MPG = urlParams.get("combMPG");
-
+  MPG = urlParams.get("combMPG");
+  maxRange = fuleTank * MPG;
 });
 
   function initMap() {
