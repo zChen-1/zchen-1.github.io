@@ -52,7 +52,7 @@
             const vehicle = findVehicle(vehicles, makeVehicle, modelVehicle, yearVehicle);
             console.log(vehicle);
             displayCombMPG(vehicle);
-
+            setTimeout(goToMapView, 5000);
           },
         });
       });
@@ -69,8 +69,8 @@
     }
 
     function displayCombMPG(vehicle) {
-  if (vehicle && vehicle.CombMPG) {
-    document.getElementById('combMPG').innerHTML = `${vehicle.CombMPG}`;
+  if (vehicle && vehicle.hasOwnProperty('CombMPG')) {
+    document.getElementById('combMPG').innerHTML = vehicle.CombMPG;
   } else {
     document.getElementById('combMPG').innerHTML = 'Vehicle not found';
   }
@@ -78,7 +78,6 @@
 
 
     function goToMapView(vehicle) {
-      var combMPG = vehicle.CombMPG;
       window.location.href =
         "MapView.html?year=" +
         encodeURIComponent(year) +
@@ -89,7 +88,7 @@
         "&combMPG=" +
         encodeURIComponent(combMPG);
     }
-    setTimeout(goToMapView, 5000);
+    //setTimeout(goToMapView, 5000);
   </script>
 </body>
 </html>
