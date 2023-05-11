@@ -176,17 +176,21 @@ html, body {
           const duration = result.routes[0].legs[0].duration.text;
           document.getElementById('distance_to_html').innerHTML = distance;
           document.getElementById('duration_to_html').innerHTML = duration;
+          
           const distanceValue = result.routes[0].legs[0].distance.value / 1609.34; //Convert meters to miles
           var gasPrice = getRandomGasPrice(3, 4);
           const travel_price_regular = getGasPriceForLocation(gasPrice, distance, MPG);
           document.getElementById('travel_price_regular').innerHTML = `$ ${travel_price_regular.toFixed(2)}`;
+          
           gasPrice += 0.2;
           const travel_price_midgrade = getGasPriceForLocation(gasPrice, distance, MPG);
           document.getElementById('travel_price_midgrade').innerHTML = `$ ${travel_price_midgrade.toFixed(2)}`;
+          
           gasPrice += 0.2;
           const travel_price_premium = getGasPriceForLocation(gasPrice, distance, MPG);
           document.getElementById('travel_price_premium').innerHTML = `$ ${travel_price_premium.toFixed(2)}`;
-          const numberOfStops = Math.floor(distanceValue / maxRange); //Do it later for max distance per refule.
+          
+          const numberOfStops = Math.floor(distanceValue / maxRange);
 
           document.getElementById('stop_points_to_html').innerHTML = numberOfStops;
           const overviewPath = result.routes[0].overview_path;
@@ -322,9 +326,10 @@ html, body {
 
 <nav>
 <p><span style='font-size:50px;'>&#128176;</span></p>
-<p>Regular: <span id="travel_price_regular" style='font-size:20px;'></span>
-   Midgrade: <span id="travel_price_midgrade" style='font-size:20px;'></span>
-   Premium: <span id="travel_price_premium" style='font-size:20px;'></span></p>
+<p style='font-size:20px;'>
+  Regular: <span id="travel_price_regular" style='font-size:20px;'></span>
+  Midgrade: <span id="travel_price_midgrade" style='font-size:20px;'></span>
+  Premium: <span id="travel_price_premium" style='font-size:20px;'></span></p>
 <p><span style='font-size:50px;'>&#9201;</span> :  <span id="duration_to_html"> </span></p>
 <p><span style='font-size:50px;'>&#128663;</span> :  <span id="distance_to_html"> </span></p>
 <span id="combMPG"></span>
