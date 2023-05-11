@@ -52,7 +52,7 @@
             const vehicle = findVehicle(vehicles, makeVehicle, modelVehicle, yearVehicle);
             console.log(vehicle);
             displayCombMPG(vehicle);
-            setTimeout(goToMapView, 5000);
+            
           },
         });
       });
@@ -88,7 +88,7 @@
         "&combMPG=" +
         encodeURIComponent(combMPG);
     }
-    //setTimeout(goToMapView, 5000);
+    setTimeout(() => goToMapView(vehicle), 5000);
   </script>
 </body>
 </html>
