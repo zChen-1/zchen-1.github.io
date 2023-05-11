@@ -95,8 +95,6 @@ article {
 
 <article>
   <div id="map"></div>
-  <div id="combMPG"></div>
-  <div id="receivedValue"></div>
   <div id="info">
   <script>
     let map;
@@ -112,41 +110,14 @@ article {
   const year = urlParams.get("year");
   const make = urlParams.get("make");
   const model = urlParams.get("model");
+  MPG = urlParams.get("combMPG")
   const yearVehicle = year;
   const modelVehicle = model;
   const makeVehicle = make;
   const receivedValue = year + " " + make + " " + model;
   document.getElementById('receivedValue').innerText = decodeURIComponent(receivedValue);
 
-  const csvUrl = 'vehicle.csv';
-  fetch(csvUrl).then((response) => response.text()).then((csvText) => {
-    Papa.parse(csvText, {
-      header: true,
-      complete: (results) => {
-        const vehicles = results.data;
-        const vehicle = findVehicle(vehicles, makeVehicle, modelVehicle, yearVehicle);
-        displayCombMPG(vehicle);
-      },
-    });
-  });
 });
-
-  function findVehicle(vehicles, makeVehicle, modelVehicle, yearVehicle) {
-  return vehicles.find(
-    (vehicle) =>
-      vehicle.Make === makeVehicle &&
-      vehicle.Model === modelVehicle &&
-      parseInt(vehicle.Year) === yearVehicle
-  );
-}
-
-function displayCombMPG(vehicle) {
-  if (vehicle) {
-    document.getElementById('combMPG').innerHTML = `MPG: ${vehicle.CombMPG}`;
-  } else {
-    document.getElementById('combMPG').innerHTML = 'Vehicle not found';
-  }
-}
 
   function initMap() {
     directionsService = new google.maps.DirectionsService();
@@ -333,6 +304,10 @@ function displayCombMPG(vehicle) {
     window.location.href = "index.html";
     }
 
+    function printPage() {
+    window.print();
+  }
+
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVPCMFzIZcldKs4BYyHHRQs7RGWQ-R534&callback=initMap&libraries=places"></script>
 </article>
@@ -342,13 +317,12 @@ function displayCombMPG(vehicle) {
 <p><span style='font-size:50px;'>&#128176;</span> :  <span id="travel_price_to_html"> </span></p>
 <p><span style='font-size:50px;'>&#9201;</span> :  <span id="duration_to_html"> </span></p>
 <p><span style='font-size:50px;'>&#128663;</span> :  <span id="distance_to_html"> </span></p>
-<p><span id="combMPG"></span></p>
+<span id="combMPG"></span>
 <p style='font-size:40px;'>Refueling Times(<img src="https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png" alt="red-dot">): <span id="stop_points_to_html"> </span></p>
 <p style='font-size:40px;'>Your Vehicle: <span id="receivedValue" style='font-size:40px;'></span></p>
 <button id="restartBtn" class="colorRestartBtn">Restart</button></div>
-<button type="printBtn" class="colorPrintBtn" onclick="myFunction()">Print</button>
+<button type="printBtn" class="colorPrintBtn" onclick="printPage()">Print</button>
 
 </nav>
 </body>
-<header> <p></p></header>
 </html>
