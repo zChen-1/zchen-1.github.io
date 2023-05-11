@@ -106,6 +106,15 @@ article {
     var maxRange = 100; //For test
     var triggerNoneGas = 0;
 
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const year = urlParams.get("year");
+      const make = urlParams.get("make");
+      const model = urlParams.get("model");
+      const receivedValue = year + " " + make + " " + model;
+      document.getElementById('receivedValue').innerText = decodeURIComponent(receivedValue);
+    });
+
     const csvUrl = 'vehicel.csv';
     fetch(csvUrl).then((response) => response.text()).then((csvText) => {
       Papa.parse(csvText, {
@@ -322,16 +331,6 @@ function displayCombMPG(vehicle) {
     function goToHomePage(){
     window.location.href = "index.html";
     }
-
-    window.addEventListener('DOMContentLoaded', (event) => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const year = urlParams.get("Year");
-    const make = urlParams.get("Make");
-    const model = urlParams.get("Model");
-    const receivedValue = year + make + model;
-
-    document.getElementById('receivedValue').innerText = decodeURIComponent(receivedValue);
-});
 
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVPCMFzIZcldKs4BYyHHRQs7RGWQ-R534&callback=initMap&libraries=places"></script>
