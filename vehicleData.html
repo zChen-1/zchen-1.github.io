@@ -24,6 +24,8 @@
     Loading your Information...
   </div>
   <div id="receivedValue"></div>
+  <div id="combMPG"></div>
+
 
 
   <script>
@@ -67,15 +69,16 @@
     }
 
     function displayCombMPG(vehicle) {
-      if (vehicle) {
-        document.getElementById('combMPG').innerHTML = `${vehicle.CombMPG}`;
-      } else {
-        document.getElementById('combMPG').innerHTML = 'Vehicle not found';
-      }
-    }
+  if (vehicle && vehicle.CombMPG) {
+    document.getElementById('combMPG').innerHTML = `${vehicle.CombMPG}`;
+  } else {
+    document.getElementById('combMPG').innerHTML = 'Vehicle not found';
+  }
+}
+
 
     function goToMapView(vehicle) {
-      var combMPG = vehicle.CombMPG
+      var combMPG = vehicle.CombMPG;
       window.location.href =
         "MapView.html?year=" +
         encodeURIComponent(year) +
