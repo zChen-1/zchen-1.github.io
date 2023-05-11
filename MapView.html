@@ -95,6 +95,7 @@ article {
 
 <article>
   <div id="map"></div>
+  <div id="combMPG"></div>
   <div id="info">
   <script>
     let map;
@@ -104,6 +105,36 @@ article {
     var gasPrice = 5.00; //For test
     var maxRange = 100; //For test
     var triggerNoneGas = 0;
+
+    const csvUrl = 'vehicel.csv';
+    fetch(csvUrl).then((response) => response.text()).then((csvText) => {
+      Papa.parse(csvText, {
+      header: true,
+      complete: (results) => {
+        const vehicles = results.data;
+        const vehicle = findVehicle(vehicles, 'Audi', 'A4', 2021);
+        displayCombMPG(vehicle);
+      },
+    });
+  });
+
+function findVehicle(vehicles, make, model, year) {
+  return vehicles.find(
+    (vehicle) =>
+      vehicle.Make === make &&
+      vehicle.Model === model &&
+      parseInt(vehicle.Year) === year
+  );
+}
+
+function displayCombMPG(vehicle) {
+  if (vehicle) {
+    document.getElementById('combMPG').innerHTML = `Combined MPG: ${vehicle.CombMPG}`;
+  } else {
+    document.getElementById('combMPG').innerHTML = 'Vehicle not found';
+  }
+}
+
 
     function initMap() {
       directionsService = new google.maps.DirectionsService();
@@ -308,7 +339,7 @@ article {
 <p><span style='font-size:50px;'>&#128663;</span> :  <span id="distance_to_html"> </span></p>
 <p style='font-size:40px;'>Refueling Times(<img src="https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png" alt="red-dot">): <span id="stop_points_to_html"> </span></p>
 <p>Information </span> :  <span id="gas_station_warning_to_html"> </p>
-<p>Your Vehicle: <span id="receivedValue" style='font-size:50px;'></span></p>
+<p>Your Vehicle: <span id="receivedValue" style='font-size:40px;'></span></p>
 <button id="restartBtn" class="colorRestartBtn">Restart</button></div>
 <button type="printBtn" class="colorPrintBtn" onclick="myFunction()">Print</button>
 

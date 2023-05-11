@@ -1,0 +1,13 @@
+Make,Model,Year,Engine,Horsepower,CombMPG
+Audi,A3,2021,2.0L,186,29
+Audi,A4,2021,2.0L,261,27
+Audi,A6,2021,3.0L,335,25
+BMW,320i,2021,2.0L,180,28
+BMW,330i,2021,2.0L,255,30
+BMW,530i,2021,2.0L,248,28
+Mercedes-Benz,C300,2021,2.0L,255,28
+Mercedes-Benz,E350,2021,2.0L,255,26
+Toyota,Camry,2021,2.5L,203,34
+Toyota,Corolla,2021,1.8L,139,33
+Honda,Accord,2021,1.5L,192,33
+Honda,Civic,2021,2.0L,158,33
