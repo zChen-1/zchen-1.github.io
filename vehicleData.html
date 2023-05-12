@@ -28,19 +28,20 @@
 
   <script>
   var vehicles = [
-  { Make: 'Audi', Model: 'A3', Year: 2021, Engine: '2.0L', Horsepower: 186, CombMPG: 29, FuelTank: '13.2' },
-  { Make: 'Audi', Model: 'A4', Year: 2021, Engine: '2.0L', Horsepower: 261, CombMPG: 27, FuelTank: '15.3' },
-  { Make: 'Audi', Model: 'A6', Year: 2021, Engine: '3.0L', Horsepower: 335, CombMPG: 25, FuelTank: '18.0' },
-  { Make: 'BMW', Model: '320i', Year: 2021, Engine: '2.0L', Horsepower: 180, CombMPG: 28, FuelTank: '15.6' },
-  { Make: 'BMW', Model: '330i', Year: 2021, Engine: '2.0L', Horsepower: 255, CombMPG: 30, FuelTank: '15.6' },
-  { Make: 'BMW', Model: '530i', Year: 2021, Engine: '2.0L', Horsepower: 248, CombMPG: 28, FuelTank: '18.0' },
-  { Make: 'Mercedes-Benz', Model: 'C300', Year: 2021, Engine: '2.0L', Horsepower: 255, CombMPG: 28, FuelTank: '17.4' },
-  { Make: 'Mercedes-Benz', Model: 'E350', Year: 2021, Engine: '2.0L', Horsepower: 255, CombMPG: 26, FuelTank: '17.4' },
-  { Make: 'Toyota', Model: 'Camry', Year: 2021, Engine: '2.5L', Horsepower: 203, CombMPG: 34, FuelTank: '14.5' },
-  { Make: 'Toyota', Model: 'Corolla', Year: 2021, Engine: '1.8L', Horsepower: 139, CombMPG: 33, FuelTank: '13.2' },
-  { Make: 'Honda', Model: 'Accord', Year: 2021, Engine: '1.5L', Horsepower: 192, CombMPG: 33, FuelTank: '14.8' },
-  { Make: 'Honda', Model: 'Civic', Year: 2021, Engine: '2.0L', Horsepower: 158, CombMPG: 33, FuelTank: '12.4' }
+  { Make: 'Audi', Model: 'A3', Year: 2021, Engine: '2.0L', Horsepower: 186, CombMPG: 29, FuelTank: '13.2 gallons', Cylinders: 4 },
+  { Make: 'Audi', Model: 'A4', Year: 2021, Engine: '2.0L', Horsepower: 261, CombMPG: 27, FuelTank: '15.3 gallons', Cylinders: 4 },
+  { Make: 'Audi', Model: 'A6', Year: 2021, Engine: '3.0L', Horsepower: 335, CombMPG: 25, FuelTank: '18.0 gallons', Cylinders: 6 },
+  { Make: 'BMW', Model: '320i', Year: 2021, Engine: '2.0L', Horsepower: 180, CombMPG: 28, FuelTank: '15.6 gallons', Cylinders: 4 },
+  { Make: 'BMW', Model: '330i', Year: 2021, Engine: '2.0L', Horsepower: 255, CombMPG: 30, FuelTank: '15.6 gallons', Cylinders: 4 },
+  { Make: 'BMW', Model: '530i', Year: 2021, Engine: '2.0L', Horsepower: 248, CombMPG: 28, FuelTank: '18.0 gallons', Cylinders: 4 },
+  { Make: 'Mercedes-Benz', Model: 'C300', Year: 2021, Engine: '2.0L', Horsepower: 255, CombMPG: 28, FuelTank: '17.4 gallons', Cylinders: 4 },
+  { Make: 'Mercedes-Benz', Model: 'E350', Year: 2021, Engine: '2.0L', Horsepower: 255, CombMPG: 26, FuelTank: '17.4 gallons', Cylinders: 4 },
+  { Make: 'Toyota', Model: 'Camry', Year: 2021, Engine: '2.5L', Horsepower: 203, CombMPG: 34, FuelTank: '14.5 gallons', Cylinders: 4 },
+  { Make: 'Toyota', Model: 'Corolla', Year: 2021, Engine: '1.8L', Horsepower: 139, CombMPG: 33, FuelTank: '13.2 gallons', Cylinders: 4 },
+  { Make: 'Honda', Model: 'Accord', Year: 2021, Engine: '1.5L', Horsepower: 192, CombMPG: 33, FuelTank: '14.8 gallons', Cylinders: 4 },
+  { Make: 'Honda', Model: 'Civic', Year: 2021, Engine: '2.0L', Horsepower: 158, CombMPG: 33, FuelTank: '12.4 gallons', Cylinders: 4 }
 ];
+
 
 
   window.addEventListener('DOMContentLoaded', (event) => {
@@ -48,6 +49,8 @@
   const year = urlParams.get('year');
   const make = urlParams.get('make');
   const model = urlParams.get('model');
+  
+
 
   const vehicle = findVehicle(vehicles, make, model, year);
   if (vehicle && vehicle.hasOwnProperty('CombMPG')) {
