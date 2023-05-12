@@ -202,6 +202,21 @@
 			window.location.href = "vehicle-Info.html";
 		}
 		function goToLogin() {
+			document.getElementById('loginForm').addEventListener('submit', function(event) {
+				event.preventDefault();
+				const username = document.getElementById('username').value;
+				const password = document.getElementById('password').value;
+				
+				// Load user data from local storage
+				const userData = loadUserData();
+				
+				if (username === userData.username && password === userData.password) {
+					alert('Login successful!');
+				} else {
+					alert('Invalid username or password!');
+				}
+			});
+
 			window.location.href = "login.html";
 		}
 	</script>
