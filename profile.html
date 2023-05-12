@@ -6,15 +6,35 @@
             .profile-info {
                 margin: 50px;
             }
+            body {
+              height: 100vh;
+			        background: url(image.png);
+			        background-size: contain;
+			        display: flex;
+			        justify-content: center;
+			        align-items: center;
+			        font-size: 16px;
+			        color: #03e9f4;
+		        }
+            .profile-info {
+              width: 600px;
+			        height: 364px;
+			        background-color: #ccc;
+			        margin: 100px auto;
+			        border-radius: 10px;
+			        box-shadow: 0 15px 25px 0 rgba(0, 0, 0, .6);
+			        padding: 40px;
+			        box-sizing: border-box;
+		        }
         </style>
     </head>
     <body>
-        <div class="profile-info">
-            <h2 id="welcomeMessage">Welcome, User</h2>
-            <h3>Your Info</h3>
-            <p id="username"></p>
-            <p id="email"></p>
-        </div>
+      <div class="profile-info">
+        <h2 id="welcomeMessage">Welcome, User</h2>
+        <h3>Your Info</h3>
+        <p id="username"></p>
+        <p id="email"></p>
+      </div>
         <script src="profile.js"></script>
         <button class="btn" onclick="goToVehicleInfo()">GO</button>
         <script>
