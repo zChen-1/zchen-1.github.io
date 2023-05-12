@@ -109,8 +109,6 @@ html, body {
   const make = urlParams.get("make");
   const model = urlParams.get("model");
   const fuleTank = urlParams.get("FuleTank");
-  const displ = urlParams.get("Engine");
-  const cyl = urlParams.get("Cylinders");
   const yearVehicle = year;
   const modelVehicle = model;
   const makeVehicle = make;
@@ -180,18 +178,21 @@ html, body {
           const duration = result.routes[0].legs[0].duration.text;
           document.getElementById('distance_to_html').innerHTML = distance;
           document.getElementById('duration_to_html').innerHTML = duration;
-          var mlMPG = { predicted_mpg };
-          console.log(mlMPG);
+          
           const distanceValue = result.routes[0].legs[0].distance.value / 1609.34; //Convert meters to miles
           var totalDistance = parseInt(distance.replace(/,/g, ''));
           var gasPrice = getRandomGasPrice(4, 9);
+          console.log("Initial gas price: " + gasPrice);
+          console.log("Total distance: " + totalDistance);
           var travel_price_regular = getGasPriceForLocation(gasPrice, totalDistance, MPG);
           document.getElementById('travel_price_regular').innerHTML = `Regular: $ ${travel_price_regular.toFixed(2)}`;
 
           gasPrice = Number(gasPrice) + 0.2;
+          console.log("Midgrade gas price: " + gasPrice);
           var travel_price_midgrade = getGasPriceForLocation(gasPrice, totalDistance, MPG);
 
           gasPrice = Number(gasPrice) + 0.2;
+          console.log("Premium gas price: " + gasPrice);
           var travel_price_premium = getGasPriceForLocation(gasPrice, totalDistance, MPG);
 
           document.getElementById('travel_price_midgrade').innerHTML = `Midgrade: $ ${travel_price_midgrade.toFixed(2)}`;
@@ -286,6 +287,7 @@ html, body {
   });
 }
 
+	//Did not clean
     function createGasStationMarker(place) {
       const marker = new google.maps.Marker({
         map: map,
@@ -331,30 +333,7 @@ html, body {
   }
 
   </script>
-  
-  <script>
-    const form = document.querySelector('form');
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const displInput = displ;
-        const cylInput = cyl;
-        const predictedMpg = document.querySelector('#predicted_mpg');
 
-        const response = await fetch('/process_form', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                displ: displInput.value,
-                cyl: cylInput.value
-            })
-        });
-
-        const data = await response.json();
-        predictedMpg.textContent = data.predicted_mpg;
-    });
-</script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVPCMFzIZcldKs4BYyHHRQs7RGWQ-R534&callback=initMap&libraries=places"></script>
 </article>
 
@@ -370,6 +349,7 @@ html, body {
 <p style='font-size:40px;'>Your Vehicle: <span id="receivedValue" style='font-size:40px;'></span></p>
 <button id="restartBtn" class="colorRestartBtn">Restart</button></div>
 <button type="printBtn" class="colorPrintBtn" onclick="printPage()">Print</button>
+
 </nav>
 </body>
 </html>
