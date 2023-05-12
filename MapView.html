@@ -1,4 +1,3 @@
-python ml.py
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -110,6 +109,8 @@ html, body {
   const make = urlParams.get("make");
   const model = urlParams.get("model");
   const fuleTank = urlParams.get("FuleTank");
+  const displ = urlParams.get("Engine");
+  const cyl = urlParams.get("Cylinders");
   const yearVehicle = year;
   const modelVehicle = model;
   const makeVehicle = make;
@@ -330,6 +331,30 @@ html, body {
   }
 
   </script>
+  
+  <script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const displInput = displ;
+        const cylInput = cyl;
+        const predictedMpg = document.querySelector('#predicted_mpg');
+
+        const response = await fetch('/process_form', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                displ: displInput.value,
+                cyl: cylInput.value
+            })
+        });
+
+        const data = await response.json();
+        predictedMpg.textContent = data.predicted_mpg;
+    });
+</script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVPCMFzIZcldKs4BYyHHRQs7RGWQ-R534&callback=initMap&libraries=places"></script>
 </article>
 
