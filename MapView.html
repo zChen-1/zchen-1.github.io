@@ -178,11 +178,12 @@ html, body {
           document.getElementById('duration_to_html').innerHTML = duration;
           
           const distanceValue = result.routes[0].legs[0].distance.value / 1609.34; //Convert meters to miles
+          var totalDistance = parseInt(distance.replace(/,/g, ''));
+
 
 var gasPrice = getRandomGasPrice(4, 9);
 console.log("Initial gas price: " + gasPrice);
 
-var totalDistance = parseInt(distance);
 console.log("Total distance: " + totalDistance);
 
 var travel_price_regular = getGasPriceForLocation(gasPrice, totalDistance, MPG);
