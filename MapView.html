@@ -87,7 +87,9 @@ html, body {
 <head>Map View</head>
 </header>
 
-<footer><span style='font-size:30px;' onclick="goToHomePage()">&#128281;</span></footer>
+<footer><span style='font-size:30px;' onclick="goToHomePage()">&#128281;</span>
+  <span style='font-size:30px;' onclick="logout()">&#128282;</span></footer>
+
 
 <article>
   <div id="map"></div>
@@ -179,26 +181,22 @@ html, body {
           
           const distanceValue = result.routes[0].legs[0].distance.value / 1609.34; //Convert meters to miles
           var totalDistance = parseInt(distance.replace(/,/g, ''));
+          var gasPrice = getRandomGasPrice(4, 9);
+          console.log("Initial gas price: " + gasPrice);
+          console.log("Total distance: " + totalDistance);
+          var travel_price_regular = getGasPriceForLocation(gasPrice, totalDistance, MPG);
+          document.getElementById('travel_price_regular').innerHTML = `Regular: $ ${travel_price_regular.toFixed(2)}`;
 
+          gasPrice = Number(gasPrice) + 0.2;
+          console.log("Midgrade gas price: " + gasPrice);
+          var travel_price_midgrade = getGasPriceForLocation(gasPrice, totalDistance, MPG);
 
-var gasPrice = getRandomGasPrice(4, 9);
-console.log("Initial gas price: " + gasPrice);
+          gasPrice = Number(gasPrice) + 0.2;
+          console.log("Premium gas price: " + gasPrice);
+          var travel_price_premium = getGasPriceForLocation(gasPrice, totalDistance, MPG);
 
-console.log("Total distance: " + totalDistance);
-
-var travel_price_regular = getGasPriceForLocation(gasPrice, totalDistance, MPG);
-document.getElementById('travel_price_regular').innerHTML = `Regular: $ ${travel_price_regular.toFixed(2)}`;
-
-gasPrice = Number(gasPrice) + 0.2;
-console.log("Midgrade gas price: " + gasPrice);
-var travel_price_midgrade = getGasPriceForLocation(gasPrice, totalDistance, MPG);
-
-gasPrice = Number(gasPrice) + 0.2;
-console.log("Premium gas price: " + gasPrice);
-var travel_price_premium = getGasPriceForLocation(gasPrice, totalDistance, MPG);
-
-document.getElementById('travel_price_midgrade').innerHTML = `Midgrade: $ ${travel_price_midgrade.toFixed(2)}`;
-document.getElementById('travel_price_premium').innerHTML = `Premium: $ ${travel_price_premium.toFixed(2)}`;
+          document.getElementById('travel_price_midgrade').innerHTML = `Midgrade: $ ${travel_price_midgrade.toFixed(2)}`;
+          document.getElementById('travel_price_premium').innerHTML = `Premium: $ ${travel_price_premium.toFixed(2)}`;
 
           
           const numberOfStops = Math.floor(distanceValue / maxRange);
@@ -328,7 +326,11 @@ document.getElementById('travel_price_premium').innerHTML = `Premium: $ ${travel
   function getGasPriceForLocation(gasPrice, totalDistance, MPG) {
   return (totalDistance / MPG) * gasPrice;
 }
-
+  function logout() {
+    localStorage.removeItem('username');
+    localStorage.removeItem('email');
+    window.location.href = "index.html";
+  }
 
   </script>
 
