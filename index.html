@@ -174,10 +174,38 @@
 				top: -100%;
 			}
 		}
+		.modal {
+			display: none;
+			position: fixed;
+  			z-index: 1;
+  			padding-top: 100px;
+  			left: 0;
+  			top: 0;
+  			width: 100%;
+  			height: 100%;
+  			overflow: auto;
+  			background-color: rgb(0,0,0);
+  			background-color: rgba(0,0,0,0.4);
+		}
+		
+		.modal-content {
+			background-color: #fefefe;
+  			margin: auto;
+  			padding: 20px;
+  			border: 1px solid #888;
+  			width: 80%;
+		}
+
 	</style>
 </head>
 
 <body>
+	<div id="alertModal" class="modal">
+		<div class="modal-content">
+			<span id="alertModalClose">&times;</span>
+			<p id="alertModalText"></p>
+		</div>
+	</div>
 	<div class="loginBox">
 		<h2>Welcome to Use RTPlan</h2>
 		<form action="">
@@ -203,22 +231,56 @@
 		}
 		function goToLogin() {
 			document.getElementById('loginForm').addEventListener('submit', function(event) {
-				event.preventDefault();
-				const username = document.getElementById('username').value;
-				const password = document.getElementById('password').value;
-				
-				// Load user data from local storage
-				const userData = loadUserData();
-				
-				if (username === userData.username && password === userData.password) {
-					alert('Login successful!');
-				} else {
-					alert('Invalid username or password!');
-				}
-			});
+    		event.preventDefault();
 
-			window.location.href = "login.html";
-		}
+    		const username = document.getElementById('username').value;
+    		const password = document.getElementById('password').value;
+
+    		// Load user data from local storage
+    		const userData = loadUserData();
+
+    		const modal = document.getElementById("alertModal");
+    		const span = document.getElementById("alertModalClose");
+    		const modalText = document.getElementById("alertModalText");
+
+    		if (username === userData.username && password === userData.password) {
+        		modalText.innerHTML = 'Login successful!';
+        		modal.style.display = "block";
+        		setTimeout(function(){ 
+            		modal.style.display = "none";
+            		window.location.href = 'profile.html';
+        		}, 2000);
+    		} else {
+        		modalText.innerHTML = 'Invalid username or password!';
+        		modal.style.display = "block";
+        		setTimeout(function(){ 
+            		modal.style.display = "none"; 
+        		}, 2000);
+    		}
+
+    		span.onclick = function() {
+        		modal.style.display = "none";
+    		}
+
+    		window.onclick = function(event) {
+        		if (event.target == modal) {
+            		modal.style.display = "none";
+        		}
+    		}
+		});
+	}
+		function showModal(text) {
+			var modal = document.getElementById("myModal");
+			var span = document.getElementsByClassName("close")[0];
+			document.getElementById('modalText').innerText = text;
+    		modal.style.display = "block";
+    		setTimeout(function() {
+				modal.style.display = "none";
+			}, 2000);
+    		span.onclick = function() {
+        	modal.style.display = "none";
+    }
+}
 	</script>
 </body>
 
