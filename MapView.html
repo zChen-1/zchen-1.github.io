@@ -189,11 +189,11 @@ console.log("Total distance: " + totalDistance);
 var travel_price_regular = getGasPriceForLocation(gasPrice, totalDistance, MPG);
 document.getElementById('travel_price_regular').innerHTML = `Regular: $ ${travel_price_regular.toFixed(2)}`;
 
-gasPrice = Number(gasPrice) + 0.2; // Assuming the difference in price between gas types is 0.2
+gasPrice = Number(gasPrice) + 0.2;
 console.log("Midgrade gas price: " + gasPrice);
 var travel_price_midgrade = getGasPriceForLocation(gasPrice, totalDistance, MPG);
 
-gasPrice = Number(gasPrice) + 0.2; // Another increase for premium gas
+gasPrice = Number(gasPrice) + 0.2;
 console.log("Premium gas price: " + gasPrice);
 var travel_price_premium = getGasPriceForLocation(gasPrice, totalDistance, MPG);
 
@@ -337,9 +337,9 @@ document.getElementById('travel_price_premium').innerHTML = `Premium: $ ${travel
 
 <nav>
 <p><span style='font-size:50px;'>&#128176;</span>
-  <span id="travel_price_regular" style='font-size:18px;'></span><rl>
-  <span id="travel_price_midgrade" style='font-size:18px;'></span>
-  <span id="travel_price_premium" style='font-size:18px;'></span></p>
+  <span id="travel_price_regular" style='font-size:auto;'></span>
+  <span id="travel_price_midgrade" style='font-size:auto;'></span>
+  <span id="travel_price_premium" style='font-size:auto;'></span></p>
 <p><span style='font-size:50px;'>&#9201;</span> :  <span id="duration_to_html"> </span></p>
 <p><span style='font-size:50px;'>&#128663;</span> :  <span id="distance_to_html"> </span></p>
 <span id="combMPG"></span>
