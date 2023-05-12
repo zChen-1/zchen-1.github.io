@@ -180,13 +180,16 @@
 </head>
 	<body>
 		<script>
-			function saveUserData(username, email, password) {
+			function saveUserData() {
+				var username = document.getElementById('username').value;
+				var email = document.getElementById('email').value;
+				var password = document.getElementById('password').value;
+
 				localStorage.setItem('username', username);
 				localStorage.setItem('email', email);
 				localStorage.setItem('password', password);
 				window.location.href = "index.html"
 			}
-
 		</script>
 		<div class="loginBox">
 			<h2>Create a new Account</h2>
@@ -202,7 +205,7 @@
 					<label for="password">Password</label>
 					<input type="password" id="password" name="password" required><br>   
 				</div>
-				<button class="btn" type="submit" value="Register" onclick="saveUserData('username', 'email', 'password');">Register</button>
+				<button class="btn" type="submit" value="Register" onclick="saveUserData();">Register</button>
 		</div>
 	</body>
 </html>
