@@ -279,7 +279,13 @@
 			}, 2000);
     		span.onclick = function() {
         	modal.style.display = "none";
-    }
+		}
+	}
+	
+	function loadUserData() {
+    const username = localStorage.getItem('username');
+    const password = localStorage.getItem('password');
+    return {username, password};
 }
 	</script>
 </body>
