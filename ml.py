@@ -8,14 +8,20 @@ from sklearn.metrics import r2_score
 import pandas as pd
 import seaborn as sns
 import numpy as np
-app = Flask(__name__)
-
-
-def index():
-    return render_template('vehicle.html')
+app = Flask(__name__)    
 
 @app.route('/process_form', methods=['POST'])
 def process_form():
+    # Retrieve form data
+    displ = float(request.form['displ'])
+    cyl = int(request.form['cyl'])
+
+    # Create a DataFrame with the input values
+    input_data = pd.DataFrame({'Displ': [displ], 'Cyl': [cyl]})
+
+    # Impute missing values with the mean (if any)
+    input_data = imputer.transform(input_data)
+
     # Load the data
     data = pd.read_csv('Fossil fuel.csv')
     features = ['Displ', 'Cyl']
@@ -59,9 +65,8 @@ def process_form():
 
     # Make the prediction
     predicted_mpg = rf.predict(input_data)
-    print('Predicted Combined MPG:', predicted_mpg[0])
 
-    return predicted_mpg[0]
+    return "Predicted Combined MPG: {:.2f}".format(predicted_mpg[0])
 
 if __name__ == '__main__':
     app.run(debug=True)
