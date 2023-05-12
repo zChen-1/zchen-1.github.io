@@ -193,15 +193,6 @@
 				return {username, email, password};
 			}
 
-			// Save user data
-
-			// Load user data
-			const userData = loadUserData();
-			console.log(userData.username); // 'myUsername'
-			console.log(userData.password); // 'myPassword'
-
-
-
 		</script>
 		<div class="loginBox">
 			<h2>Create a new Account</h2>
@@ -218,7 +209,7 @@
 					<label for="password">Password</label>
 					<input type="password" id="password" name="password" required><br>   
 				</div>
-				<input class="btn" type="submit" value="Register" onclick="saveUserData('username', 'email', 'password');">
+				<button class="btn" type="submit" value="Register" onclick="saveUserData('username', 'email', 'password');">Register</button>
 			</form>
 		</div>
 	</body>
