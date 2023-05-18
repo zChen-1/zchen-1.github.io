@@ -113,8 +113,8 @@ html, body {
   const receivedValue = year + " " + make + " " + model;
   document.getElementById('receivedValue').innerText = decodeURIComponent(receivedValue);
   MPG = urlParams.get("combMPG");
-  maxRange = fuleTank * MPG;
-
+  maxRange = Number(fuleTank) * MPG;
+  //ml_MPG = {{ predicted_mpg }};
 });
 
   function initMap() {
@@ -317,8 +317,13 @@ html, body {
   }
 
   function getGasPriceForLocation(gasPrice, totalDistance, MPG) {
-  return (totalDistance / MPG) * gasPrice;
-}
+    return (totalDistance / MPG) * gasPrice;
+  }
+
+  function getGasPriceFromML(gasPrice, totalDistance, ml_MPG){
+    return (totalDistance / ml_MPG) * gasPrice;
+  }
+
   function logout() {
     localStorage.removeItem('username');
     localStorage.removeItem('email');

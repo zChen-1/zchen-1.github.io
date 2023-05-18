@@ -21,8 +21,9 @@ rf = RandomForestRegressor(n_estimators=100, max_depth=10, random_state=42)
 rf.fit(data[features], data[target])
 
 @app.route('/')
-def index():
-    return render_template('index.html')
+def mapView(predicted_mpg):
+    return render_template('MapView.html', predicted_mpg = predicted_mpg)
+
 
 @app.route('/process_form', methods=['POST'])
 def process_form():
@@ -38,8 +39,7 @@ def process_form():
 
     # Make the prediction
     predicted_mpg = rf.predict(input_data)
-
-    return "Predicted Combined MPG: {:.2f}".format(predicted_mpg[0])
+    mapView(predicted_mpg);
 
 if __name__ == '__main__':
     app.run(debug=True)
