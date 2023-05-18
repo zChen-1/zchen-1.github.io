@@ -89,9 +89,7 @@ html, body {
 
 <footer><span style='font-size:30px;' onclick="goToHomePage()">&#128281;</span>
   <span style='font-size:30px;' onclick="logout()">&#128282;</span></footer>
-
-
-<article>
+  <article>
   <div id="map"></div>
   <div id="info">
   <script>
@@ -99,8 +97,8 @@ html, body {
     let directionsService;
     let directionsRenderer;
     var MPG = 0;
-    var gasPrice = 5.00; //For test
-    var maxRange = 0; //For test
+    var gasPrice = 0;
+    var maxRange = 0;
     var triggerNoneGas = 0;
 
   window.addEventListener('DOMContentLoaded', (event) => {
@@ -229,7 +227,7 @@ html, body {
     function changetrigger_none_gas(newNum){
       triggerNoneGas = newNum;
     }
-	//Did not show
+
 	function addStopMarker(location) {
 		const marker = new google.maps.Marker({
 		position: location,
@@ -274,11 +272,7 @@ html, body {
                 createGasStationMarker(results[i]);
               }
             } else {
-              triggerNoneGas = 1;
-              //changetrigger_none_gas(1);
-              //document.getElementById('gas_station_warning_to_html').innerHTML = `WARNING!!! There is no gas station 50 miles away from the #`;
-              //document.getElementById('gas_station_warning_to_html').innerHTML = `${triggerNoneGas}`;
-              //document.getElementById('gas_station_warning_num_to_html').innerHTML = `${none_gas.text}`;
+              document.getElementById('gas_station_warning_to_html').innerHTML = `WARNING!!! There is no gas station 50 miles away from the #`;
             }
           });
         }
@@ -287,7 +281,6 @@ html, body {
   });
 }
 
-	//Did not clean
     function createGasStationMarker(place) {
       const marker = new google.maps.Marker({
         map: map,
