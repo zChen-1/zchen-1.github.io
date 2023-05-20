@@ -53,12 +53,6 @@
 
 
   const vehicle = findVehicle(vehicles, make, model, year);
-  if (vehicle && vehicle.hasOwnProperty('CombMPG')) {
-    //document.getElementById('combMPG').innerHTML = `${vehicle.CombMPG}`;
-  } else {
-    document.getElementById('combMPG').innerHTML = 'Vehicle not found';
-  }
-
   if (vehicle) {
   setTimeout(() => goToMapView(year, make, model, vehicle.CombMPG, vehicle.FuelTank), 1500);
 } else {
@@ -75,7 +69,6 @@
       vehicle.Year === parseInt(year)
   );
 }
-
 
 function goToMapView(year, make, model, combMPG, FuelTank) {
   window.location.href =

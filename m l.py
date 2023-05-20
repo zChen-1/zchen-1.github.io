@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request
-import pandas as pd
 from sklearn.impute import SimpleImputer
 from sklearn.ensemble import RandomForestRegressor
+import pandas as pd
 
+# Initialize the Flask application
 app = Flask(__name__)
 
 # Load the data
@@ -21,9 +22,8 @@ rf = RandomForestRegressor(n_estimators=100, max_depth=10, random_state=42)
 rf.fit(data[features], data[target])
 
 @app.route('/')
-def mapView(predicted_mpg):
-    return render_template('MapView.html', predicted_mpg = predicted_mpg)
-
+def index():
+    return render_template('index.html')
 
 @app.route('/process_form', methods=['POST'])
 def process_form():
@@ -39,7 +39,8 @@ def process_form():
 
     # Make the prediction
     predicted_mpg = rf.predict(input_data)
-    mapView(predicted_mpg);
 
-if __name__ == '__main__':
+    return render_template('MapView.html', predicted_mpg=predicted_mpg[0])
+
+if __name__ == "__main__":
     app.run(debug=True)
