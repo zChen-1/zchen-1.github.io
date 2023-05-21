@@ -14,7 +14,7 @@
 #Vehicle Information Page: vehicle_Info.html
 #Map Page: MapView.html
 
-###IN PLAN###
+### IN PLAN ###
 #Predicted MPG file: ml.py
 #Training data: Fossil fuel.csv
 
