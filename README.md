@@ -1,6 +1,6 @@
 # URL: zchen-1.github.io
 ### Information ###
-#Project Advisor: Dr. Lidia Morrison
+#Project Advisor: Dr. Lidia Morrison#
 #Name: Zhihuang Chen
 #Class: CPSC 491
 #Department of Computer Science and Engineering
