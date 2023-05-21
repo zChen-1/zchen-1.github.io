@@ -48,7 +48,8 @@
         <p></p>
         <p></p>
         <p></p>
-        <button class="btn" onclick="goToVehicleInfo()">GO</button>
+        <button class="btn" onclick="goToMapView()">GO</button>
+        <button class="btn" onclick="goToVehicleInfo()"></button>
         <button class="btn" onclick="logout()">Log out</button>
       </div>
         <script src="profile.js"></script>
@@ -61,6 +62,9 @@
             localStorage.removeItem('username');
             localStorage.removeItem('email');
             window.location.href = "index.html";
+          }
+          function goToMapView() {
+            window.location.href = "MapView.html";
           }
         </script>
     </body>
